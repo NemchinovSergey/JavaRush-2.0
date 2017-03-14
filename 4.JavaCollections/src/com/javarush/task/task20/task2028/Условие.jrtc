@@ -1,0 +1,12 @@
+<div class="wdghtml" taskKey="com.javarush.task.task20.task2028.big01">
+<h3>Построй дерево(1)</h3>
+<p>Амиго, похоже ты уже достаточно окреп. Самое время проверить свои навыки в большой задаче!<br />
+Сегодня реализуем свое дерево немного нестандартным способом(на базе <span class="text-corporate"><strong>AbstractList</strong></span>).<br />
+Вводную информацию можешь получить используя свой любимый поисковик и текст ниже.</p>
+<p><strong>Элементы дерева должны следовать так как показано на картинке:</strong><br />
+<em>http://info.javarush.ru/uploads/images/00/04/89/2014/03/21/ee9a9b.jpg</em></p>
+<p>Для начала сделаем наше дерево потомком класса <strong><span class="text-corporate">AbstractList</span></strong> с параметром типа <span class="text-corporate">String</span>, а также<br />
+реализуем интерфейсы <strong><span class="text-yellow">Cloneable</span></strong> и <span class="text-yellow"><strong>Serializable</strong></span>.</p>
+<p>Реализацию методов <mark>get(int <strong>index</strong>)</mark> и <mark>size()</mark> пока оставь стандартной.</p>
+
+</div>

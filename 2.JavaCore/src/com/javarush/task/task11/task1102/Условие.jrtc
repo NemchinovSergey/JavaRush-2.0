@@ -1,0 +1,6 @@
+<div class="wdghtml" taskKey="com.javarush.task.task11.task1102">
+<h3>Домашние животные</h3>
+<p>Отредактировать <strong>три класса</strong>: <span class="text-corporate"><strong>Pet</strong></span> (<strong>домашнее животное</strong>), <span class="text-corporate"><strong>Cat</strong></span> (<strong>кот</strong>) и <span class="text-corporate"><strong>Dog</strong></span> (<strong>собака</strong>).<br />
+Унаследовать кота и собаку от животного.</p>
+
+</div>

@@ -1,0 +1,95 @@
+<div class="wdghtml" taskKey="com.javarush.task.task36.task3608.big04">
+<h3>MVC (4)</h3>
+<p>Пора заменять нашу фейковую Модель на реальную, которая будет получать данные из <strong><span class="text-corporate">DataSource</span></strong>.<br />
+В пакет <strong><span class="text-red">model.service</span></strong> я добавил сервис для работы с пользователями.<br />
+Также в корне этой задачи ты найдешь утильный класс <span class="text-corporate"><strong>Util</strong></span>.</p>
+<p>1. Аналогично <strong><span class="text-yellow">FakeModel</span></strong> создай модель <span class="text-yellow"><strong>MainModel</strong></span>.</p>
+<p>2. Т.к. Модель обращается к сервисам, то в <strong><span class="text-yellow">MainModel</span></strong> создай поле <mark class="user">UserService</mark> <span class="text-corporate">userService</span>, инициализируй объектом.</p>
+<p>3. Реализуй логику метода <mark>loadUsers</mark>:<br />
+3.1. Достань всех пользователей между <span class="text-user"><strong>1</strong></span> и <span class="text-user"><strong>100</strong></span> уровнями. (Метод <mark>getUsersBetweenLevels(1, 100)</mark>).<br />
+3.2. Положи всех пользователей в <strong><span class="text-yellow">modelData</span></strong>.</p>
+<p>4. Обнови <strong>Solution.main</strong>: замени <strong><span class="text-yellow">FakeModel</span></strong> на <span class="text-yellow"><strong>MainModel</strong></span>.<br />
+Преимущества <strong>MVC</strong> в том, что в любой момент времени легко можно заменить любую часть паттерна.</p>
+
+<hr>
+<h3>MVC (3)</h3>
+<p>Чтобы понимать, в правильном ли направлении ты движешься, тебе надо видеть данные. Поэтому:</p>
+<p>1. В пакете view создай класс UsersView, реализующий View. Он будет отображать список пользователей в консоль.</p>
+<p></p>
+<p>2. В UsersView создай поле-контроллер, также создай ему сеттер.</p>
+<p></p>
+<p>3. Реализуй логику метода refresh:</p>
+<p>3.1. Выведи в консоль фразу &quot;All users:&quot;.</p>
+<p>3.2. Выведи в консоль всех пользователей, которые есть в modelData.</p>
+<p>Перед каждым пользователем сделай отступ в виде табуляции.</p>
+<p>3.3. В конце выведи визуальный разделитель данных</p>
+<p>==================================================</p>
+<p></p>
+<p>4. Уже интересно посмотреть, что же получилось.</p>
+<p>Добавь в UsersView публичный метод void fireEventShowAllUsers(), который будет эмулировать событие клиента.</p>
+<p>Обратись к контроллеру и вызови его нужный метод для отображения всех пользователей.</p>
+<p></p>
+<p>5. Класс Solution будет эмулятором пользователя. Открой класс Solution, стань на красный метод,</p>
+<p>с помощью горячих клавиш Идеи создай проперти(поле) для usersView.</p>
+<p>Нужен только сеттер. Если у тебя создался геттер, то удали его.</p>
+<p></p>
+<p>6. Запусти main. Упс, ничего не вывело :(</p>
+<p>Это получилось потому, что данные пришли с сервера, обновились в ModelData, но Вью ничего о них не знает.</p>
+<p>Вью сама не умеет себя обновлять. Это делает Контроллер.</p>
+<p>Пойди в контроллер и добавь обновление данных во Вью.</p>
+<p>Напомню, данные хранятся в Модели.</p>
+<p></p>
+<p>7. Запусти main. У меня теперь такой вывод:</p>
+<p>All users:</p>
+<p>User{name='A', id=1, level=1}</p>
+<p>User{name='B', id=2, level=1}</p>
+<p>==================================================</p>
+<p>Ура, идем дальше.</p>
+
+<hr>
+<h3>MVC (2)</h3>
+<p>1. Создай пакет <strong><span class="text-red">controller</span></strong>, в котором создай класс <span class="text-corporate"><strong>Controller</strong></span>.<br />
+Этот класс будет получать запрос от клиента, оповещать Модель об этом, а Модель, в свою очередь, будет обновлять <strong><span class="text-red">ModelData</span></strong>.</p>
+<p>2. Добавь в контроллер поле <mark class="user">Model</mark> <span class="text-corporate">model</span> вместе с сеттером.</p>
+<p>3. В контроллере создай публичный метод <mark>void onShowAllUsers()</mark>, который должен обратиться к модели и инициировать загрузку пользователей.</p>
+<p>4. Создай пакет <strong><span class="text-red">view</span></strong>. В нем создай интерфейс <strong><span class="text-yellow">View</span></strong>.</p>
+<p>5. В интерфейс <span class="text-yellow"><strong>View</strong></span> добавь два метода: <mark>void refresh(ModelData modelData)</mark> и <mark>void setController(Controller controller)</mark></p>
+
+<hr>
+<h3>MVC (1)</h3>
+<p>Привет! Эта задача будет на паттерн <strong>MVC</strong> &#8212; <strong>Model-View-Controller</strong>.<br />
+Мы вместе построим архитектуру используя <strong>MVC</strong>. Разберись подробно, что и почему нужно реализовывать так, как я тебе покажу.<br />
+Прочти дополнительную литературу, которую дает профессор в конце уровня.<br />
+Тебя, скорее всего, на собеседовании спросят об этом паттерне либо дадут задание, в котором нужно будет его реализовать.</p>
+<p>Итак&#8230;<br />
+У тебя есть два пакета: bean, содержащий единственный класс <strong><span class="text-corporate">User</span></strong>, и <span class="text-corporate"><strong>dao</strong></span>,<br />
+в котором хранится эмуляция базы данных в пакете <strong><span class="text-red">mock</span></strong> и <strong><span class="text-red">UserDao</span></strong>. <strong><span class="text-red">UserDao</span></strong> &#8212; это уровень <strong>ДАО</strong>, т.е. уровень доступа к базе.<br />
+В нем размещают различные методы по <strong>сохранению</strong> и <strong>получению</strong> объектов из базы данных.<br />
+В реальном приложении строку <span class="text-neon">private DataSource dataSource = DataSource.getInstance()</span> не встретить.<br />
+Я реализовал <strong>DataSource</strong> в виде синглтона. В действительности, у тебя будет что-то такое:<br />
+<span class="text-neon">@Autowired</span><br />
+<span class="text-neon"> private DataSource dataSource;</span></p>
+<p>Фреймворк, которым ты будешь пользоваться, сам создаст объект базы данных и инициализирует поле <mark class="user">dataSource</mark>.</p>
+<p>Запомни, с <strong>ДАО</strong> уровнем работают сервисы. Никакие другие классы в <strong>ДАО</strong> не лезут. В сервисах описана бизнес логика.<br />
+Сервисы забирают данные из базы используя <strong>ДАО</strong>, обрабатывают их и отдают тому, кто данные запросил.<br />
+Однако не все данные хранятся в базе. Например, залогиненый пользователь будет храниться в специальном объекте &#8212; Модели.<br />
+Объект, который содержит в себе данные, необходимые для отображения информации на клиенте, называется Моделью.<br />
+Также этот объект Модель содержит ссылки на все необходимые сервисы.<br />
+Если данных для отображения очень много, то их выделяют в отдельный объект.</p>
+<p>Напишем приложение, которое будет показывать список пользователей и что-то делать с ними, например, обновлять их данные и удалять.</p>
+<p>1. Создай пакет <strong><span class="text-red">model</span></strong>, в котором создай класс <span class="text-corporate"><strong>ModelData</strong></span>.<br />
+<span class="text-corporate"><strong>ModelData</strong></span> &#8212; это объект, который будет хранить необходимые данные для отображения на клиенте.<br />
+Создай поле с геттером и сеттером <span class="text-red"><strong>List</strong>&lt;User&gt; users</span> &#8212; это будет список пользователей для отображения.</p>
+<p>2. Используя любую модель должна быть возможность получить все необходимые данные для отображения. Поэтому в пакете <strong><span class="text-red">model</span></strong> создай интерфейс <strong><span class="text-yellow">Model</span></strong>, который должен содержать метод <mark>ModelData getModelData()</mark>.</p>
+<p>3. В пакете model создай класс <strong><span class="text-corporate">FakeModel</span></strong>, реализующий <strong><span class="text-yellow">Model</span></strong>. Он нам понадобится на начальном этапе.<br />
+В нем создай поле <span class="text-corporate"><strong>ModelData</strong></span> <span class="text-corporate">modelData</span>, которое инициализируй объектом.</p>
+<p>4. В интерфейсе <strong><span class="text-yellow">Model</span></strong> создай метод <mark>void loadUsers()</mark>.<br />
+Реализуй его в <mark>FakeModel</mark>: инициализируй список пользователей <strong><span class="text-red">modelData</span></strong> любыми данными. Они не влияют на тестирование.</p>
+<p><strong>У меня такие данные:</strong><br />
+<span class="text-neon">User{name=&#8217;A&#8217;, id=1, level=1}</span><br />
+<span class="text-neon"> User{name=&#8217;B&#8217;, id=2, level=1}</span></p>
+<p>Думаю, ты помнишь, что все методы интерфейса являются <strong>public</strong>-ами, поэтому модификатор указывать не нужно.<br />
+Программисты часто мОкают данные на начальном этапе. Получение реальных данных реализуется на последних этапах.<br />
+<mark class="neon">Мокать</mark> &#8212; это подменять реальные объекты на хардкоженные, тестовые данные.</p>
+
+</div>

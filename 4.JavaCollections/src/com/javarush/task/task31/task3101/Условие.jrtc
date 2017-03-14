@@ -1,0 +1,13 @@
+<div class="wdghtml" taskKey="com.javarush.task.task31.task3101">
+<h3>Проход по дереву файлов</h3>
+<p>1. На вход метода <mark>main</mark> подаются два параметра.<br />
+Первый &#8212; <mark class="user">path</mark> &#8212; путь к директории, второй &#8212; <mark class="user">resultFileAbsolutePath</mark> &#8212; имя файла, который будет содержать результат.<br />
+2. Для каждого файла в директории <mark class="user">path</mark> и в ее всех вложенных поддиректориях выполнить следующее:<br />
+2.1. Если у файла длина в байтах больше <strong><span class="text-user">50</span></strong>, то удалить его (используй метод <mark>FileUtils.deleteFile</mark>).<br />
+2.2. Если у файла длина в байтах <strong>НЕ</strong> больше <span class="text-user"><strong>50</strong></span>, то для всех таких файлов:<br />
+2.2.1. <strong>Отсортировать</strong> их по имени файла в возрастающем порядке, путь не учитывать при сортировке.<br />
+2.2.2. <strong>Переименовать</strong> <mark class="user">resultFileAbsolutePath</mark> в &#8216;<mark class="user">allFilesContent.txt</mark>&#8216; (используй метод <mark>FileUtils.renameFile</mark>).<br />
+2.2.3. В <mark>allFilesContent.txt</mark> последовательно записать содержимое всех файлов из <strong>п. 2.2.1.</strong> Тела файлов разделять &#171;<strong>n</strong>&#171;.<br />
+Все файлы имеют расширение <strong>txt</strong>.</p>
+
+</div>

@@ -1,0 +1,14 @@
+<div class="wdghtml" taskKey="com.javarush.task.task24.task2412">
+<h3>Знания - сила!</h3>
+<p>1. В методе <mark>sort</mark> написать компаратор для <strong><span class="text-corporate">Stock</span></strong>:<br />
+1.1. Первичная сортировка по <mark class="user">name</mark> в алфавитном порядке<br />
+1.2. Вторичная сортировка по <strong>дате</strong> без учета часов, минут, секунд (<em>сверху самые новые</em>), потом по прибыли от положительных к отрицательным</p>
+<p><span class="text-neon">&#8230; open 125,64 and last 126,74 &#8212; <strong>тут прибыль</strong> = 126,74-125,64</span><br />
+<span class="text-neon"> &#8230; open 125,64 and last 123,43 &#8212; <strong>тут прибыль</strong> = 123,43-125,64</span></p>
+<p>2. Разобраться с <strong>*Format-ами</strong> и исправить <strong><span class="text-corporate">IllegalArgumentException</span></strong>.<br />
+<strong>Подсказка</strong> &#8212; <em>это одна строчка.</em></p>
+<p><strong>Пример вывода:</strong><br />
+<code>Fake Apple Inc. AAPL | 17-11-2025 open 125,64 and last 123,43<br />
+Fake Oracle Corporation ORCL | 21-08-1989 closed 0,15</code></p>
+
+</div>

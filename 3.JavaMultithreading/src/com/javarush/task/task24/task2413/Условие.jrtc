@@ -1,0 +1,262 @@
+<div class="wdghtml" taskKey="com.javarush.task.task24.task2413.big20">
+<h3>Арканоид(20)</h3>
+<p><strong>Отличная работа!</strong> Я добавил пару методов, а также класс <span class="text-corporate"><strong>KeyboardObserver</strong></span>.</p>
+<p>Немного отдохни перед новым уровнем и поиграй.</p>
+<p><strong>P.S.</strong> <em>Только не забудь отрегулировать высоту консоли.</em></p>
+
+<hr>
+<h3>Арканоид(19)</h3>
+<p>Осталось совсем чуть-чуть.</p>
+<p>В классе <span class="text-corporate"><strong>Arkanoid</strong></span> создай поле приватное <mark class="user">isGameOver</mark> типа <span class="text-neon">boolean</span>.</p>
+<p>Реализуй метод <mark>checkBricksBump</mark>.<br />
+В этом методе надо проверить &#8212; не столкнулся ли шарик с каким-нибудь из &#171;<em><strong>кирпичей</strong></em>&#171;.<br />
+Для проверки столкновения используй метод <mark>isIntersec</mark>.<br />
+<strong>Если шарик все-таки попал в кирпич, то:</strong><br />
+а) шарик <em><strong>отлетает</strong></em> в случайном направлении:<br />
+<span class="text-neon">double angle = Math.random() * 360;</span><br />
+<span class="text-neon"> ball.setDirection(angle);</span><br />
+б) кирпич <em><strong>умирает</strong></em> &#8212; надо удалить его из списка всех кирпичей.</p>
+<p>Реализуй метод <mark>checkStandBump</mark>.<br />
+В этом методе надо проверить &#8212; не ударился ли шарик о подставку.<br />
+Для проверки столкновения используй метод isIntersec.<br />
+Если шарик все-таки ударился о подставку, то:<br />
+шарик отлетает в случайным направлении вверх:<br />
+<span class="text-neon">double angle = 90 + 20 * (Math.random() &#8212; 0.5);</span><br />
+<span class="text-neon"> ball.setDirection(angel);</span></p>
+<p>Реализуй метод <mark>checkEndGame</mark>.<br />
+Если координата y шарика больше чем высота поля игры (<mark class="user">height</mark>), значит шарик улетел вниз за границу экрана.<br />
+В этом случае надо переменную <mark class="user">isGameOver</mark> установить в <span class="text-neon"><strong>true</strong></span>.</p>
+
+<hr>
+<h3>Арканоид(18)</h3>
+<p>Теперь вернемся к классу <span class="text-corporate"><strong>Arkanoid</strong></span>.</p>
+<p>Реализуй методы:<br />
+а) <mark>move()</mark><br />
+В этом методе нужно двигать все движимые объекты (<mark class="green">stand</mark><strong>, </strong><mark class="green">ball</mark>).<br />
+б) <mark>draw(Canvas <strong>canvas</strong>)</mark><br />
+В этом методе надо вызвать метод <mark>draw</mark> всех существующих объектов, которые его имеют.</p>
+
+<hr>
+<h3>Арканоид(17)</h3>
+<p><strong> Еще подставке нужны методы:</strong><br />
+а) <mark>move</mark> &#8212; см. <strong><mark class="user">move</mark></strong> в <strong><span class="text-corporate">BaseObject</span></strong><br />
+Движение доски осуществляется горизонтально, поэтому мы меняем только координату <mark class="user">х</mark>.<br />
+Подумай, как координата <mark class="user">х</mark> зависит от направления (<mark class="user">direction</mark>) и скорости (<mark class="user">speed</mark>). Реализуй зависимость.<br />
+б) <mark>draw</mark> &#8212; см. <mark>draw</mark> в <span class="text-corporate"><strong>BaseObject</strong></span><br />
+Его кодом я займусь сам.<br />
+в) <mark>moveLeft()</mark> &#8212; задает постоянное движение &#171;<em><strong>подставки</strong></em>&#187; <strong>влево</strong><br />
+Просто присвой правильное значение переменной <strong>direction</strong>.<br />
+г) <mark>moveRight()</mark> &#8212; задает постоянное движение &#171;<em><strong>подставки</strong></em>&#187; <strong>вправо</strong><br />
+Просто присвой правильное значение переменной <mark class="user">direction</mark>.</p>
+
+<hr>
+<h3>Арканоид(16)</h3>
+<p>И наконец &#171;<em><strong>подставка</strong></em>&#171;!<br />
+Ей понадобятся такие приватные поля:<br />
+а) <mark class="user">speed</mark> (скорость шарика) типа <span class="text-neon">double</span>;<br />
+б) <mark class="user">direction</mark> (<em>направление движения по оси</em> <mark class="user">x</mark>: <span class="text-user"><strong>1</strong></span> &#8212; <em>вправо</em>, <strong><span class="text-user">-1</span></strong> &#8212; <em>влево</em>, <span class="text-user"><strong>0</strong></span> &#8212; <em>начальное значение, стоим на месте</em>) типа <span class="text-neon">double</span>.</p>
+<p><strong>Также создай для них геттеры.</strong></p>
+<p><strong>А еще с тебя конструктор, примерно вот такой:</strong><br />
+<code>public Stand(double x, double y) {<br />
+  super(x, y, 3);<br />
+  speed = 1;<br />
+  direction = 0;<br />
+}</code></p>
+
+<hr>
+<h3>Арканоид(15)</h3>
+<p>Не поверишь, но и это еще не все.</p>
+<p>Во-первых нужен метод <mark>setDirection</mark>,<br />
+который не только устанавливает значение переменной <mark class="user">direction</mark>,<br />
+но и вычисляет новые значения переменных <mark class="user">dx</mark> и <mark class="user">dy</mark>.</p>
+<p><strong>Код должен выглядеть примерно так:</strong><br />
+<span class="text-neon">this.direction = direction;</span><br />
+<span class="text-neon"> double angel = Math.toRadians(direction);</span><br />
+<span class="text-neon"> dx = Math.cos(angle) * speed;</span><br />
+<span class="text-neon"> dy = -Math.sin(angle) * speed.</span></p>
+<p>Во-вторых шарик может удариться о стенку.<br />
+При этом он должен от нее отскочить.</p>
+<p><strong>Для этого нам понадобится еще один метод:</strong><br />
+<mark>void checkRebound(int <strong>minx</strong>, int <strong>maxx</strong>, int <strong>miny</strong>, int <strong>maxy</strong>)</mark></p>
+<p>Создай его, а кодом я займусь сам.</p>
+
+<hr>
+<h3>Арканоид(14)</h3>
+<p>Чего-то не хватает в классе <span class="text-corporate"><strong>Ball</strong></span>:</p>
+<p>Во-первых надо реализовать метод <mark>move()</mark>, унаследованный от <span class="text-corporate"><strong>BaseObject</strong></span>:<br />
+а) x должен увеличиваться на <mark class="user">dx</mark> каждый ход<br />
+б) y должен увеличиваться на <mark class="user">dy</mark> каждый ход<br />
+если шарик &#171;<em><strong>заморожен</strong></em>&#171;, то <mark class="user">x</mark> и <mark class="user">y</mark> меняться не должны</p>
+<p>Во-вторых надо реализовать метод <mark>draw(Canvas <strong>canvas</strong>)</mark>:<br />
+на объекте canvas необходимо вызвать метод <mark>setPoint</mark> с параметрами (<mark class="user">x</mark>, <mark class="user">y</mark>, &#8216;<strong>O</strong>&#8216;)</p>
+<p>В-третьих надо реализовать метод <mark>start()</mark><br />
+Именно его вызов &#171;<em><strong>размораживает</strong></em>&#187; шарик.<br />
+Что для этого надо сделать &#8212; это ты уже сам реши.</p>
+<p><strong>P.S.</strong> <em>Чуть не забыл! Поля </em><mark class="user">x</mark>, <em><mark class="user">y</mark> и <mark class="user">radius</mark> объявлены в классе </em><span class="text-corporate"><strong>BaseObject</strong></span><em> с модификатором доступа private,</em><br />
+<em> что не очень-то удобно. Измени его на </em><strong><span class="text-corporate">protected</span></strong><em>, чтобы все потомки класса </em><span class="text-corporate"><strong>BaseObject</strong></span><em> имели контроль над своими</em><br />
+<em> координатами и размерами, без необходимости пользоваться &#171;</em><strong>чужими</strong><em>&#187; <strong>геттерами</strong> и <strong>сеттерами</strong>.</em></p>
+
+<hr>
+<h3>Арканоид(13)</h3>
+<p>Класс <span class="text-corporate"><strong>Ball</strong></span> уже посложнее &#8212; шарик же двигается.</p>
+<p>Нам понадобятся приватные поля:<br />
+а) <mark class="user">speed</mark> (<em>скорость шарика</em>) типа <span class="text-neon">double</span>;<br />
+б) <mark class="user">direction</mark> (<em>направление движения в градусах: от </em><strong><span class="text-user">0</span></strong><em> до </em><span class="text-user"><strong>360</strong></span>) типа <span class="text-neon">double</span>;<br />
+в) <mark class="user">dx</mark> (<em>расстояние по x, которое проходит шарик за один шаг. вычисляется на основе </em><mark class="user">speed</mark><em> и </em><mark class="user">direction</mark>) типа <span class="text-neon">double</span>;<br />
+г) <mark class="user">dy</mark> (<em>расстояние по y, которое проходит шарик за один шаг. вычисляется на основе</em> <mark class="user">speed</mark> и <mark class="user">direction</mark>) типа <span class="text-neon">double</span>;<br />
+д) <mark class="user">isFrozen</mark> (&#171;<strong><em>истина</em></strong>&#187; <em>если шарик</em> &#171;<em><strong>заморожен</strong></em>&#187; &#8212; <em>не двигается</em>) типа <span class="text-neon">boolean</span>.</p>
+<p>Не забудь добавить геттеры для всех полей этого класса, кроме <mark class="user">isFrozen</mark> (<em>его мы будем использовать только внутри класса</em> <span class="text-corporate"><strong>Ball</strong></span>).</p>
+<p><strong>А еще сделай-ка конструктор:</strong><br />
+а) параметры &#8212; <mark class="user">x</mark>, <mark class="user">y</mark>, <mark class="user">speed</mark>, <mark class="user">direction</mark>;<br />
+б) радиус (<em>для вызова родительского класса</em>) всегда равен <strong><span class="text-user">1</span></strong>;<br />
+в) не забудь установить <mark class="user">isFrozen</mark> в <strong><span class="text-neon">true</span></strong> &#8212; в начале игры шарик никуда не летит.</p>
+
+<hr>
+<h3>Арканоид(12)</h3>
+<p>Теперь напишем класс <span class="text-corporate"><strong>Brick</strong></span>.</p>
+<p>Во-первых займемся конструктором и в нем точно зададим &#171;<em><strong>радиус</strong></em>&#187; всех кирпичей.<br />
+<strong>Пусть он выглядит так:</strong><br />
+<span class="text-neon">public Brick(double x, double y) {</span><br />
+<span class="text-neon">  super(x, y, 3);</span><br />
+<span class="text-neon"> }</span></p>
+<p>Еще нам нужно переопределить два метода <mark>move()</mark> и <mark>draw(Canvas <strong>canvas</strong>)</mark>.<br />
+Метод <mark>move()</mark> не делает ничего (<em>не содержит кода</em>), т.к. кирпич никуда не двигается.</p>
+<p>Напиши еще метод <mark>draw(Canvas <strong>canvas</strong>)</mark>.<br />
+Его кодом я займусь сам.</p>
+
+<hr>
+<h3>Арканоид(11)</h3>
+<p>Еще <span class="text-corporate"><strong>Canvas</strong></span> понадобится два метода, напиши их.<br />
+а) метод <mark>clear()</mark><br />
+Этот метод будет очищать матрицу, чтобы на ней снова можно было рисовать.<br />
+Можешь просто заново инициализировать <mark class="green">matrix</mark> пустым массивом правильной размерности.<br />
+б) метод <mark>print()</mark><br />
+Этот метод рисует матрицу на экран.<br />
+Тут уже ты должен сам разобраться: вывести набор символов не так уж и сложно.</p>
+
+<hr>
+<h3>Арканоид(10)</h3>
+<p>Что мы будем делать с <span class="text-corporate"><strong>Canvas</strong></span>?<br />
+Мы будем рисовать на нем (<em>в его матрице</em>).<br />
+Поэтому нам понадобятся два метода<br />
+<mark>void setPoint(double <strong>x</strong>, double <strong>y</strong>, char <strong>c</strong>)</mark><br />
+<mark>void drawMatrix(double <strong>x</strong>, double <strong>y</strong>, int[][] <strong>matrix</strong>, char <strong>c</strong>)</mark></p>
+<p>Первый метод &#8212; <mark>setPoint</mark> будет &#171;<strong><em>ставить точку в координатах</em></strong> <mark class="user">x</mark><strong>,</strong><mark class="user">y</mark><strong><em> цветом </em></strong><mark class="user">c</mark>&#171;.</p>
+<p><strong>В методе надо:</strong><br />
+а) округлить <mark class="user">x</mark> и <mark class="user">y</mark> до целых чисел<br />
+б) занести в <mark class="user">matrix[y][x]</mark> значение с<br />
+в) ничего не делать, если <mark class="user">x</mark> &lt; <span class="text-user"><strong>0</strong></span> или <mark class="user">y</mark> &lt; <strong><span class="text-user">0</span></strong> или <mark class="user">y</mark> &gt; <strong><span class="text-user">matrix.length</span></strong> или <mark class="user">x</mark> &gt; <strong><span class="text-user">matrix[0].length</span></strong></p>
+<p>Второй метод &#8212; <mark>drawMatrix</mark> копирует переданную ему картинку (<em><strong>матрицу</strong></em>) в матрицу <span class="text-corporate"><strong>Canvas</strong></span>.<br />
+И не просто копирует, а начиная с координат <mark class="user">x</mark>, <mark class="user">y</mark></p>
+<p><strong>В методе надо:</strong><br />
+а) с помощью двух вложенных циклов пройтись по всем ячейкам переданной картинки<br />
+б) если значение ячейки элемента <strong>[i][j]</strong> полученной матрицы не равно<span class="text-user"><strong> 0</strong></span>, то покрасить в матрице объекта <span class="text-corporate"><strong>Canvas</strong></span> точку <strong>(</strong><mark class="user">x</mark><strong>+j, </strong><mark class="user">y</mark><strong>+i)</strong> в цвет <mark class="user">c</mark>:<br />
+<span class="text-neon">setPoint(x+j, y+i, c)</span></p>
+
+<hr>
+<h3>Арканоид(9)</h3>
+<p>Теперь займемся классом <span class="text-corporate"><strong>Canvas</strong></span>.<br />
+Он у нас будет содержать матрицу (<em><strong>двумерный массив</strong></em>), куда мы будем &#171;<em><strong>рисовать</strong></em>&#171;.<br />
+У матрицы есть ширина и высота.<br />
+А еще будем в ней хранить не <strong>числа</strong> (<span class="text-corporate">int</span>), а <strong>символы</strong> (<span class="text-corporate">char</span>).</p>
+<p><strong>Надо:</strong><br />
+а) Добавить в класс два приватных поля <mark class="user">width</mark> и <mark class="user">height</mark>.<br />
+б) Добавить в класс приватное поле <mark class="user">matrix</mark> (<span class="text-corporate">char[][]</span>).<br />
+в) Добавить конструктор с двумя параметрами типа <span class="text-corporate">int</span> (<mark class="user">width</mark> и <mark class="user">height</mark>), поле <mark class="user">matrix</mark> должно быть инициализировано пустым массивом размерностью <strong>[</strong><mark class="user">height</mark><strong>+2][</strong><mark class="user">width</mark><strong>+2]</strong>.<br />
+г) Добавить геттеры и сеттеры для всех приватных полей класса.</p>
+
+<hr>
+<h3>Арканоид(8)</h3>
+<p>Но и это еще не все.<br />
+Классу <strong><span class="text-corporate">BaseObject</span></strong> нужны еще методы.<br />
+Пока это будут пустые методы <mark>draw(Canvas canvas)</mark> и <mark>move()</mark>.<br />
+Классы-наследники должны будут переопределить их у себя и реализовать необходимую функциональность (<em>пока можешь оставить их пустыми, просто чтобы код компилировался</em>).<br />
+Объяви эти методы, но сделай их абстрактными.<br />
+Также сделай абстрактным сам класс <strong><span class="text-corporate">BaseObject</span></strong>.</p>
+<p>А еще нам нужно будет определять попал шарик в кирпич или в подставку.<br />
+<strong>Это будем делать так:</strong><br />
+В этом же классе, создадим специальный метод: <mark>boolean isIntersec(BaseObject <strong>o</strong>)</mark><br />
+Он будет определять &#8212; &#171;<em><strong>пересеклись</strong></em>&#187; объекты или нет. Если пересеклись &#8212; возвращать <span class="text-neon"><strong>true</strong></span>, если нет &#8212; <span class="text-neon"><strong>false</strong></span>.</p>
+<p>Т.к. объекты мы условно считаем кругами, то предлагаю такую формулу взаимодействия<br />
+Если центр круга одного объекта попал в круг другого, то будем считать, что они столкнулись.</p>
+<p><strong>Или еще проще:</strong><br />
+<span class="text-neon">дистанция_между_объектами &lt;= max (радиус_первого_объекта, радиус_второго_объекта)</span></p>
+
+<hr>
+<h3>Арканоид(7)</h3>
+<p>Теперь перейдем к классу <strong><span class="text-corporate">BaseObject</span></strong>.<br />
+Я хочу сделать несколько предложений.</p>
+<p><strong>Во-первых</strong> для простоты считать все объекты у нас будут круглыми.<br />
+Нет, отрисовывать их мы будем фигурными, как и раньше.<br />
+А вот при расчетах из взаимодействия исходить из того, что они круглые.<br />
+Так &#8212; гораздо проще.</p>
+<p><strong>Во-вторых</strong>. Пусть координаты объектов и радиус будут вещественными числами.<br />
+Это придаст плавность движениям и точность всем вычислениям.<br />
+А при отрисовке мы будем их округлять.</p>
+<p><strong>Итак:</strong><br />
+а) Добавь в класс <span class="text-corporate"><strong>BaseObject</strong></span> приватные поля <mark class="user">x</mark> (<span class="text-corporate">double</span>), <mark class="user">y</mark> (double), <mark class="user">radius</mark> (<span class="text-corporate">double</span>).<br />
+б) Добавь <strong>геттеры</strong> и <strong>сеттеры</strong>.<br />
+в) Добавь конструктор <mark>BaseObject(double <strong>x</strong>, double <strong>y</strong>, double <strong>radius</strong>)</mark>.<br />
+г) Пройдись по все <strong>классам-наследникам</strong> и поправь у них конструкторы.</p>
+<p>Если вы пользуйтесь <strong>Intellij IDEA</strong> &#8212; <span class="text-neon">Alt+Insert</span> вам в помощь.</p>
+
+<hr>
+<h3>Арканоид(6)</h3>
+<p>У нас будут &#171;<em><strong>кирпичи</strong></em>&#171;, &#171;<em><strong>шарик</strong></em>&#187; и &#171;<em><strong>подставка</strong></em>&#187; и у них будет много общего.<br />
+Они будут перемещаться по полю и отрисовываться.<br />
+Значит у них у всех будут координаты и размер.<br />
+А еще методы <mark>move()</mark> &#8212; для перемещения и <mark>draw()</mark> для отрисовки.</p>
+<p>Есть интересное предложение: давай введем один базовый класс для все объектов.<br />
+Пусть это будет класс <span class="text-corporate"><strong>BaseObject</strong></span>.<br />
+А классы <span class="text-corporate"><strong>Ball</strong></span>, <span class="text-corporate"><strong>Stand</strong></span>, <span class="text-corporate"><strong>Brick</strong></span> от него наследуются.</p>
+<p>Создай класс <span class="text-corporate"><strong>BaseObject</strong></span> и добавь его родителем к классам <span class="text-corporate"><strong>Ball</strong></span>, <span class="text-corporate"><strong>Stand</strong></span>, <span class="text-corporate"><strong>Brick</strong></span></p>
+<p>Еще нам понадобится класс <span class="text-corporate"><strong>Canvas</strong></span><br />
+Он будет ответственным за &#171;<em><strong>отрисовку</strong></em>&#187; объектов.<br />
+С помощью его они будут отрисовывать себя.<br />
+Вернее даже на нем, но детали я сообщу позднее.</p>
+<p><strong>Создай и этот класс.</strong></p>
+
+<hr>
+<h3>Арканоид(5)</h3>
+<p>Чего еще не хватает классу <span class="text-corporate"><strong>Arkanoid</strong></span>?<br />
+Во-первых ему нужен метод <mark>run()</mark>, в котором будет описана основная логика программы.<br />
+Еще нужен метод <mark>move()</mark> &#8212; который будет двигать на один шаг все объекты требующие движения.<br />
+Создай методы <mark>run()</mark> и <mark>move()</mark>.</p>
+<p>Еще нам понадобится <strong>НЕ</strong> приватная статическая переменная game типа <span class="text-corporate"><strong>Arkanoid</strong></span>, которая будет хранить ссылку на созданный экземпляр класса <span class="text-corporate"><strong>Arkanoid</strong></span>.</p>
+<p><strong>Выглядеть это должно примерно так:</strong><br />
+<span class="text-neon">static Arkanoid game;</span></p>
+
+<hr>
+<h3>Арканоид(4)</h3>
+<p>Также классу <span class="text-corporate"><strong>Arkanoid</strong></span> нужно будет хранить ссылку на шарик (<span class="text-corporate"><strong>Ball</strong></span>), &#171;<em><strong>подставку</strong></em>&#187; <span class="text-corporate"><strong>Stand</strong></span> и список &#171;<em><strong>кирпичей</strong></em>&#171;.</p>
+<p><strong>Надо:</strong><br />
+а) создать в классе <span class="text-corporate"><strong>Arkanoid</strong></span> два private поля: <mark class="green">ball</mark> типа <span class="text-corporate"><strong>Ball</strong></span> и <mark class="user">stand</mark> типа <strong><span class="text-corporate">Stand</span></strong><br />
+б) добавить private поле <mark class="user">bricks</mark> типа <span class="text-red"><strong>List</strong>&lt;Brick&gt;</span><br />
+в) добавь для них публичные <strong>геттеры</strong> и <strong>сеттеры</strong></p>
+
+<hr>
+<h3>Арканоид(3)</h3>
+<p>Пожалуй, пора добавить конструктор в класс <span class="text-corporate"><strong>Arkanoid</strong></span>.<br />
+Конструктор должен принимать два параметра типа <span class="text-corporate">int</span> (<mark class="user">width</mark> и <mark class="user">height</mark>) и корректно устанавливать значения соответствующих полей класса.</p>
+
+<hr>
+<h3>Арканоид(2)</h3>
+<p>Главному <strong>классу</strong> (<span class="text-corporate"><strong>Arkanoid</strong></span>) нужно будет хранить информацию о размерах поля, где будут происходить все действия.</p>
+<p>Поэтому:<br />
+а) добавь в класс <span class="text-corporate"><strong>Arkanoid</strong></span> два приватных поля <mark class="user">width</mark>(<strong>ширина</strong>) и <mark class="user">height</mark>(<strong>высота</strong>) типа <span class="text-corporate">int</span><br />
+б) создай для них публичные <strong>геттеры</strong> и <strong>сеттеры</strong></p>
+
+<hr>
+<h3>Арканоид(1)</h3>
+<p>Давай сегодня напишем игру <strong>Арканоид</strong>.</p>
+<p>В оригинале это выглядит примерно так <em>http://www.youtube.com/watch?v=Th-Z6QQ5AOQ</em><br />
+Для начала мы напишем <strong>упрощенную</strong> <strong>версию</strong> этой игры.<br />
+У нас будут кубики, шарик и летающая &#171;<em><strong>подставка</strong></em>&#171;, которая не дает шарику упасть.</p>
+<p>Поэтому нам понадобятся классы:<br />
+а) <span class="text-corporate"><strong>Arkanoid</strong></span> &#8212; класс в котором происходят основные действия. Также в нем будет наша точка входа в программу, метод <mark>main</mark>.<br />
+б) <span class="text-corporate"><strong>Ball</strong></span> &#8212; <strong>шарик</strong>.<br />
+в) <strong><span class="text-corporate">Brick</span></strong> &#8212; &#171;<em><strong>кирпичи</strong></em>&#171;, которые мы сбиваем шариком.<br />
+г) <span class="text-corporate"><strong>Stand</strong></span> &#8212; <strong>летающая</strong> <strong>подставка</strong>.</p>
+<p>Создай их, и не забудь о методе <mark>public static void main (String[] <strong>args</strong>)</mark> в класе <span class="text-corporate"><strong>Arkanoid</strong></span>.</p>
+
+</div>
