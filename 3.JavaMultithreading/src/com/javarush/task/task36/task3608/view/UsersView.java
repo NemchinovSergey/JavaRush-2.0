@@ -7,17 +7,21 @@ import com.javarush.task.task36.task3608.model.ModelData;
 /**
  * Created by nemchinov on 13.02.2017.
  */
-public class UsersView implements View
-{
+public class UsersView implements View {
     private Controller controller;
 
     @Override
     public void refresh(ModelData modelData) {
-        System.out.println("All users:");
-        for (User user : modelData.getUsers()) {
+        if (modelData.isDisplayDeletedUserList())
+            System.out.println("All deleted users:");
+        else
+            System.out.println("All users:");
+
+        for (User user : modelData.getUsers())
+        {
             System.out.println("\t" + user);
         }
-        System.out.println("==================================================");
+        System.out.println("===================================================");
     }
 
     @Override
@@ -25,8 +29,11 @@ public class UsersView implements View
         this.controller = controller;
     }
 
-    public void fireEventShowAllUsers()
-    {
+    public void fireEventShowAllUsers() {
         controller.onShowAllUsers();
+    }
+
+    public void fireEventShowDeletedUsers() {
+        controller.onShowAllDeletedUsers();
     }
 }
