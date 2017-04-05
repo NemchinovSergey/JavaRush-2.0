@@ -1,8 +1,13 @@
 package com.javarush.task.task29.task2909.human;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Human {
     public static int nextId = 0;
     private int id;
+    private List<Human> children = new ArrayList<>();
     protected int age;
     protected String name;
     protected int course;
@@ -29,6 +34,18 @@ public class Human {
         this.isSoldier = isSoldier;
         this.id = nextId;
         nextId++;
+    }
+
+    public List<Human> getChildren() {
+        return Collections.unmodifiableList(children);
+    }
+
+    public void addChild (Human child) {
+        children.add(child);
+    }
+
+    public void removeChild(Human child) {
+        children.remove(child);
     }
 
     public int getAge() {
