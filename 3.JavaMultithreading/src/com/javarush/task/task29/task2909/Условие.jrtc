@@ -1,4 +1,27 @@
-taskKey="com.javarush.task.task29.task2909.big05"
+taskKey="com.javarush.task.task29.task2909.big06"
+
+Рефакторинг (6)
+
+6.1.	Замена параметра набором специализированных методов. Замени метод setValue() класса
+Student специализированными методами setCourse и setAverageGrade.
+6.2.	Добавление параметра. Добавить параметр с типом double в метод
+getStudentWithAverageGrade(), чтобы было понятно с каким средним балом нужен студент.
+Реализуй метод getStudentWithAverageGrade().
+6.3.	Удаление параметра. Убери параметр из метода getStudentWithMaxAverageGrade().
+Реализуй этот метод, он должен возвращать студента с максимальным средним балом.
+6.4.	Разделение запроса и модификатора. Раздели метод
+getStudentWithMinAverageGradeAndExpel на Student getStudentWithMinAverageGrade() и
+void expel(Student student). Первый метод должен возвратить студента с
+минимальным средним балом, а второй - отчислить переданного студента (удалять из
+списка students).
+
+
+Требования:
+1.	Необходимо заменить метод setValue класса Student специализированными методами setCourse и setAverageGrade.
+2.	Необходимо добавить параметр с типом double в метод getStudentWithAverageGrade() класса University и реализовать метод.
+3.	Необходимо удалить параметр из метода getStudentWithMaxAverageGrade(double) класса University и реализовать метод.
+4.	Необходимо разделить метод getStudentWithMinAverageGradeAndExpel на Student getStudentWithMinAverageGrade() и void expel(Student student) и реализовать эти два метода.
+
 
 Рефакторинг (5)
 
@@ -9,15 +32,6 @@ taskKey="com.javarush.task.task29.task2909.big05"
 5.2.	Замена делегирования наследованием. Класс Worker должен наследоваться от Human, а не содержать его.
 5.3.	Переименование метода. Переименуй метод setSlr, чтобы было понятно сеттером чего является этот метод.
 
-
-Требования:
-1.	В классе Human должен существовать метод String getPosition(), который возвращает строку "Человек".
-2.	В классе Student переопредели метод String getPosition(), чтобы он возвращал строку "Студент".
-3.	В классе Teacher переопредели метод String getPosition(), чтобы он возвращал строку "Преподаватель".
-4.	Необходимо заменить метод printData() в классе Student на метод printData() в классе Human. Используй getPosition().
-5.	Необходимо заменить метод printData() в классе Teacher на метод printData() в классе Human. Используй getPosition().
-6.	Класс Worker должен наследоваться от класса Human, а не содержать его.
-7.	В классе Worker необходимо переименовать метод setSlr(double) на setSalary(double).
 
 
 Рефакторинг (4)
