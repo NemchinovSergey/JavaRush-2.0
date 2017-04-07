@@ -73,6 +73,23 @@ public class Server {
             }
         }
 
+        private void serverMainLoop(Connection connection, String userName) {
+            while (true) {
+                try {
+                    Message msg = connection.receive();
+                    if (msg.getType() == MessageType.TEXT) {
+                        sendBroadcastMessage(new Message(MessageType.TEXT, String.format("%s: %s", userName, msg.getData())));
+                    }
+                    else {
+                        ConsoleHelper.writeMessage("Error: message is not a text!");
+                    }
+                }
+                catch (IOException | ClassNotFoundException e) {
+                    ConsoleHelper.writeMessage(String.format("Error receive message from %s", userName));
+                }
+            }
+        }
+
         @Override
         public void run() {
             try {
