@@ -11,12 +11,12 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class Server {
     private static Map<String, Connection> connectionMap = new ConcurrentHashMap<>();
+
     public static void sendBroadcastMessage(Message message) {
         for (Connection connection : connectionMap.values()) {
             try {
                 connection.send(message);
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 ConsoleHelper.writeMessage("Error send message");
             }
         }
@@ -49,9 +49,16 @@ public class Server {
             this.socket = socket;
         }
 
+        private void sendListOfUsers(Connection connection, String userName) throws IOException {
+            for (String name : connectionMap.keySet()) {
+                if (!name.equals(userName)) {
+                    connection.send(new Message(MessageType.USER_ADDED, name));
+                }
+            }
+        }
+
         private String serverHandshake(Connection connection) throws IOException, ClassNotFoundException {
-            while (true)
-            {
+            while (true) {
                 connection.send(new Message(MessageType.NAME_REQUEST));
                 Message handshake = connection.receive();
 
