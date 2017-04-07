@@ -24,11 +24,11 @@ public class Server {
 
 
     public static void main(String[] args) {
-        //ConsoleHelper.writeMessage("Enter server socket number:");
+        ConsoleHelper.writeMessage("Input server port number:");
         int serverPort = ConsoleHelper.readInt();
 
         try (ServerSocket serverSocket = new ServerSocket(serverPort)) {
-            ConsoleHelper.writeMessage(String.format("Server started at %d port", serverSocket.getLocalPort()));
+            ConsoleHelper.writeMessage(String.format("Server started at [%d] port", serverSocket.getLocalPort()));
 
             while (!Thread.currentThread().isInterrupted()) {
                 Socket client = serverSocket.accept();
@@ -39,7 +39,6 @@ public class Server {
         } catch (IOException e) {
             ConsoleHelper.writeMessage(e.getMessage());
         }
-
     }
 
     private static class Handler extends Thread {
@@ -79,12 +78,10 @@ public class Server {
                     Message msg = connection.receive();
                     if (msg.getType() == MessageType.TEXT) {
                         sendBroadcastMessage(new Message(MessageType.TEXT, String.format("%s: %s", userName, msg.getData())));
-                    }
-                    else {
+                    } else {
                         ConsoleHelper.writeMessage("Error: message is not a text!");
                     }
-                }
-                catch (IOException | ClassNotFoundException e) {
+                } catch (IOException | ClassNotFoundException e) {
                     ConsoleHelper.writeMessage(String.format("Error receive message from %s", userName));
                 }
             }
@@ -92,13 +89,24 @@ public class Server {
 
         @Override
         public void run() {
-            try {
-                while (!Thread.currentThread().isInterrupted()) {
+            ConsoleHelper.writeMessage(String.format("Established new connection with remote address [%s]", socket.getRemoteSocketAddress()));
+            String clientName = null;
 
+            try (Connection clientConnection = new Connection(socket)) {
+                ConsoleHelper.writeMessage("Connection with port " + clientConnection.getRemoteSocketAddress());
+                clientName = serverHandshake(clientConnection);
+                sendBroadcastMessage(new Message(MessageType.USER_ADDED, clientName));
+                sendListOfUsers(clientConnection, clientName);
+                serverMainLoop(clientConnection, clientName);
 
-                    sleep(10);
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            } finally {
+                if (clientName != null) {
+                    connectionMap.remove(clientName);
+                    sendBroadcastMessage(new Message(MessageType.USER_REMOVED, clientName));
+                    ConsoleHelper.writeMessage(String.format("Connection with remote address [%s] closed", socket.getRemoteSocketAddress().toString()));
                 }
-            } catch (InterruptedException ioException) {
             }
         }
     }
