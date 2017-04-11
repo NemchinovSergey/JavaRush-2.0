@@ -6,6 +6,7 @@ import com.javarush.task.task30.task3008.Message;
 import com.javarush.task.task30.task3008.MessageType;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * Created by nemchinov on 11.04.2017.
@@ -13,6 +14,43 @@ import java.io.IOException;
 public class Client {
     protected Connection connection;
     private volatile boolean clientConnected = false;
+
+    public static void main(String[] args) {
+        Client client = new Client();
+        client.run();
+    }
+
+    public void run() {
+        SocketThread socket = getSocketThread();
+        socket.setDaemon(true);
+        socket.start();
+        synchronized (this) {
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                ConsoleHelper.writeMessage("Connection failed. " + e.getMessage());
+                return;
+            }
+        }
+
+        if (clientConnected) {
+            ConsoleHelper.writeMessage("Соединение установлено. Для выхода наберите команду 'exit'.");
+        }
+        else {
+            ConsoleHelper.writeMessage("Произошла ошибка во время работы клиента.");
+        }
+
+        String msg = null;
+        while (clientConnected && !Objects.equals(msg, "exit")) {
+            msg = ConsoleHelper.readString();
+
+            if (shouldSendTextFromConsole()) {
+                sendTextMessage(msg);
+            }
+        }
+    }
+
+
     protected String getServerAddress() {
         ConsoleHelper.writeMessage("Enter server ip-address:");
         return ConsoleHelper.readString();
@@ -28,7 +66,7 @@ public class Client {
         return ConsoleHelper.readString();
     }
 
-    protected  boolean shouldSendTextFromConsole() {
+    protected boolean shouldSendTextFromConsole() {
         return true;
     }
 
@@ -41,7 +79,7 @@ public class Client {
             connection.send(new Message(MessageType.TEXT, text));
         }
         catch (IOException e) {
-            ConsoleHelper.writeMessage("An error was occurred. Connection is lost.");
+            ConsoleHelper.writeMessage("An error was occurred. Connection is lost." + e.getMessage());
             clientConnected = false;
         }
     }
