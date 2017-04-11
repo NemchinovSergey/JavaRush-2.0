@@ -35,8 +35,7 @@ public class Client {
 
         if (clientConnected) {
             ConsoleHelper.writeMessage("Соединение установлено. Для выхода наберите команду 'exit'.");
-        }
-        else {
+        } else {
             ConsoleHelper.writeMessage("Произошла ошибка во время работы клиента.");
         }
 
@@ -77,14 +76,48 @@ public class Client {
     protected void sendTextMessage(String text) {
         try {
             connection.send(new Message(MessageType.TEXT, text));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             ConsoleHelper.writeMessage("An error was occurred. Connection is lost." + e.getMessage());
             clientConnected = false;
         }
     }
 
     public class SocketThread extends Thread {
+        protected void clientMainLoop() throws IOException, ClassNotFoundException {
+            Message message;
+            while (true) {
+                message = connection.receive();
+                if (message.getType() == MessageType.TEXT) {
+                    processIncomingMessage(message.getData());
+                }
+                else if (message.getType() == MessageType.USER_ADDED) {
+                    informAboutAddingNewUser(message.getData());
+                }
+                else if (message.getType() == MessageType.USER_REMOVED) {
+                    informAboutDeletingNewUser(message.getData());
+                }
+                else {
+                    throw new IOException("Unexpected MessageType");
+                }
+            }
+        }
+
+        protected void clientHandshake() throws IOException, ClassNotFoundException {
+            while (true) {
+                Message message = connection.receive();
+                if (message.getType() == MessageType.NAME_REQUEST) {
+                    connection.send(new Message(MessageType.USER_NAME, getUserName()));
+                }
+                else if (message.getType() == MessageType.NAME_ACCEPTED) {
+                    notifyConnectionStatusChanged(true);
+                    break;
+                }
+                else {
+                    throw new IOException("Unexpected MessageType");
+                }
+            }
+        }
+
         protected void processIncomingMessage(String message) {
             ConsoleHelper.writeMessage(message);
         }
