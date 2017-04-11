@@ -6,6 +6,7 @@ import com.javarush.task.task30.task3008.Message;
 import com.javarush.task.task30.task3008.MessageType;
 
 import java.io.IOException;
+import java.net.Socket;
 import java.util.Objects;
 
 /**
@@ -83,20 +84,32 @@ public class Client {
     }
 
     public class SocketThread extends Thread {
+
+        public void run() {
+            String serverIP = getServerAddress();
+            int port = getServerPort();
+
+            try {
+                Socket socket = new Socket(serverIP, port);
+                connection = new Connection(socket);
+                clientHandshake();
+                clientMainLoop();
+            } catch (IOException | ClassNotFoundException e) {
+                notifyConnectionStatusChanged(false);
+            }
+        }
+
         protected void clientMainLoop() throws IOException, ClassNotFoundException {
             Message message;
             while (true) {
                 message = connection.receive();
                 if (message.getType() == MessageType.TEXT) {
                     processIncomingMessage(message.getData());
-                }
-                else if (message.getType() == MessageType.USER_ADDED) {
+                } else if (message.getType() == MessageType.USER_ADDED) {
                     informAboutAddingNewUser(message.getData());
-                }
-                else if (message.getType() == MessageType.USER_REMOVED) {
+                } else if (message.getType() == MessageType.USER_REMOVED) {
                     informAboutDeletingNewUser(message.getData());
-                }
-                else {
+                } else {
                     throw new IOException("Unexpected MessageType");
                 }
             }
@@ -107,12 +120,10 @@ public class Client {
                 Message message = connection.receive();
                 if (message.getType() == MessageType.NAME_REQUEST) {
                     connection.send(new Message(MessageType.USER_NAME, getUserName()));
-                }
-                else if (message.getType() == MessageType.NAME_ACCEPTED) {
+                } else if (message.getType() == MessageType.NAME_ACCEPTED) {
                     notifyConnectionStatusChanged(true);
                     break;
-                }
-                else {
+                } else {
                     throw new IOException("Unexpected MessageType");
                 }
             }
