@@ -1,5 +1,7 @@
 package com.javarush.task.task31.task3110;
 
+import com.javarush.task.task31.task3110.command.ExitCommand;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -23,6 +25,12 @@ public class Archiver {
             ZipFileManager zipFileManager = new ZipFileManager(Paths.get(archivePath));
             zipFileManager.createZip(Paths.get(filePath));
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            new ExitCommand().execute();
         } catch (Exception e) {
             e.printStackTrace();
         }
