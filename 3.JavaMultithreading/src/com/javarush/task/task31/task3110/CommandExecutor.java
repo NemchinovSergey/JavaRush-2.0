@@ -5,9 +5,6 @@ import com.javarush.task.task31.task3110.command.*;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by nemchinov on 13.04.2017.
- */
 public class CommandExecutor {
     private static final Map<Operation, Command> allKnownCommandsMap = new HashMap<>();
 
@@ -24,9 +21,6 @@ public class CommandExecutor {
     }
 
     public static void execute(Operation operation) throws Exception {
-        Command command = allKnownCommandsMap.get(operation);
-        if (command != null) {
-            command.execute();
-        }
+        allKnownCommandsMap.get(operation).execute();
     }
 }
