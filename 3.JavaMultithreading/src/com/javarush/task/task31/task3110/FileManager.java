@@ -1,16 +1,12 @@
 package com.javarush.task.task31.task3110;
 
 import java.io.IOException;
-import java.nio.file.DirectoryIteratorException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by nemchinov on 13.04.2017.
- */
 public class FileManager {
     private Path rootPath;
     private List<Path> fileList;
@@ -26,18 +22,20 @@ public class FileManager {
     }
 
     private void collectFileList(Path path) throws IOException {
+        // Добавляем только файлы
         if (Files.isRegularFile(path)) {
-            fileList.add(rootPath.relativize(path));
+            Path relativePath = rootPath.relativize(path);
+            fileList.add(relativePath);
         }
-        else if (Files.isDirectory(path)) {
+
+        // Добавляем содержимое директории
+        if (Files.isDirectory(path)) {
+            // Рекурсивно проходимся по всему содержмому директории
+            // Чтобы не писать код по вызову close для DirectoryStream, обернем вызов newDirectoryStream в try-with-resources
             try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(path)) {
-                for (Path entry: directoryStream) {
-                    collectFileList(entry);
+                for (Path file : directoryStream) {
+                    collectFileList(file);
                 }
-            }
-            catch (DirectoryIteratorException ex) {
-                // I/O error encounted during the iteration, the cause is an IOException
-                throw ex.getCause();
             }
         }
     }
