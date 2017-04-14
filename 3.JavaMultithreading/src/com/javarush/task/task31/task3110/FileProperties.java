@@ -1,8 +1,5 @@
 package com.javarush.task.task31.task3110;
 
-/**
- * Created by nemchinov on 14.04.2017.
- */
 public class FileProperties {
     private String name;
     private long size;
@@ -15,6 +12,7 @@ public class FileProperties {
         this.compressedSize = compressedSize;
         this.compressionMethod = compressionMethod;
     }
+
 
     public String getName() {
         return name;
@@ -33,18 +31,25 @@ public class FileProperties {
     }
 
     public long getCompressionRatio() {
-        // степень сжатия по формуле: 100 — ((compressedSize * 100) / size)
+        // Вычисляем степень сжатия
         return 100 - ((compressedSize * 100) / size);
     }
 
     @Override
     public String toString() {
-        // "name size Kb (compressedSize Kb) сжатие: compressionRatio%"
+        // Строим красивую строку из свойств
+        StringBuilder builder = new StringBuilder();
+        builder.append(name);
         if (size > 0) {
-            return String.format("%s %d Kb (%d Kb) сжатие: %d%%", name, (size / 1024), (compressedSize / 1024), getCompressionRatio());
+            builder.append("\t");
+            builder.append(size / 1024);
+            builder.append(" Kb (");
+            builder.append(compressedSize / 1024);
+            builder.append(" Kb) сжатие: ");
+            builder.append(getCompressionRatio());
+            builder.append("%");
         }
-        else {
-            return name;
-        }
+
+        return builder.toString();
     }
 }
