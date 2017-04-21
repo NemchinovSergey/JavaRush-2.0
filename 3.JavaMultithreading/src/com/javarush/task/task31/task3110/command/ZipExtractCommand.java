@@ -3,6 +3,7 @@ package com.javarush.task.task31.task3110.command;
 import com.javarush.task.task31.task3110.ConsoleHelper;
 import com.javarush.task.task31.task3110.ZipFileManager;
 import com.javarush.task.task31.task3110.exception.PathIsNotFoundException;
+import com.javarush.task.task31.task3110.exception.WrongZipFileException;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,14 +19,18 @@ public class ZipExtractCommand extends ZipCommand {
 
             ZipFileManager zipFileManager = getZipFileManager();
 
-            ConsoleHelper.writeMessage("Введите полный путь к директории куда извлекать:");
-            Path destPath = Paths.get(ConsoleHelper.readString());
-            zipFileManager.extractAll(destPath);
+            ConsoleHelper.writeMessage("Введите полный путь директории куда распаковывать:");
+            Path sourcePath = Paths.get(ConsoleHelper.readString());
+            zipFileManager.extractAll(sourcePath);
 
             ConsoleHelper.writeMessage("Архив распакован.");
 
-        } catch (PathIsNotFoundException e) {
+        }
+        catch (PathIsNotFoundException e) {
             ConsoleHelper.writeMessage("Вы неверно указали имя файла или директории.");
+        }
+        catch (WrongZipFileException e) {
+            ConsoleHelper.writeMessage("Не верно указано имя zip-архива.");
         }
     }
 }
