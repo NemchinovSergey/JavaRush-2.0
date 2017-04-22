@@ -50,8 +50,11 @@ public class Solution {
 
         @Override
         public Thread newThread(Runnable r) {
-            return new Thread(r, String.format("%s-pool-%d-thread-%d", Thread.currentThread().getThreadGroup().getName(),
+            Thread thread = new Thread(r, String.format("%s-pool-%d-thread-%d", Thread.currentThread().getThreadGroup().getName(),
                     factoryNumber.get(), threadNumber.incrementAndGet()));
+            thread.setDaemon(false);
+            thread.setPriority(Thread.NORM_PRIORITY);
+            return thread;
         }
     }
 }
