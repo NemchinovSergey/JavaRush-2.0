@@ -52,7 +52,7 @@ public class Game {
     private List<Sportsman> getSportsmanWithEqualTime() {
         List<Sportsman> result = new ArrayList<>();
         for (int i = 0; i < members.size(); i++) {
-            if (members.get(i).getResultTime().equals(controlSportsman.getResultTime())) {
+            if (members.get(i).getResultTime().toString().equals(controlSportsman.getResultTime().toString())) {
                 result.add((members.get(i)));
             }
         }
