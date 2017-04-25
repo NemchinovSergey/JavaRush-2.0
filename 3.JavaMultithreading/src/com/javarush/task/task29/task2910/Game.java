@@ -23,7 +23,7 @@ public class Game {
         controlSportsman.setAverageSpeed(new BigDecimal(20.));
         controlSportsman.setChanceToHit(MAX_CHANCE_TO_HIT_IN_TARGET);
         controlSportsman.setCountHitOutTarget(2);
-        controlSportsman.setResultTime(new BigDecimal("3640.0"));
+        controlSportsman.setResultTime(new BigDecimal("3640.00"));
         System.out.println("РЕЗУЛЬТАТ КОНТРОЛЬНО СПОРТСМЕНА:");
         controlSportsman.printResultInfo();
     }
@@ -52,7 +52,7 @@ public class Game {
     private List<Sportsman> getSportsmanWithEqualTime() {
         List<Sportsman> result = new ArrayList<>();
         for (int i = 0; i < members.size(); i++) {
-            if (members.get(i).getResultTime().toString().equals(controlSportsman.getResultTime().toString())) {
+            if (members.get(i).getResultTime().equals(controlSportsman.getResultTime())) {
                 result.add((members.get(i)));
             }
         }
