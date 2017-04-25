@@ -110,6 +110,7 @@ public class View extends JFrame implements ActionListener {
     public void resetUndo() {
         undoManager.discardAllEdits();
     }
+
     public UndoListener getUndoListener() {
         return undoListener;
     }
@@ -129,8 +130,8 @@ public class View extends JFrame implements ActionListener {
 
     public void showAbout() {
         JOptionPane.showMessageDialog(this,
-                            "JavaRush HTML Editor",
-                            "About",
-                             JOptionPane.INFORMATION_MESSAGE);
+                "JavaRush HTML Editor",
+                "About",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 }
