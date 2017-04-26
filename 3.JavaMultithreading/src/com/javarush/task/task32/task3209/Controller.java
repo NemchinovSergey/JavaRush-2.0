@@ -86,6 +86,7 @@ public class Controller {
 
             try (FileReader reader = new FileReader(currentFile)) {
                 new HTMLEditorKit().read(reader, document, 0);
+                view.update();
                 view.resetUndo();
             } catch (Exception e) {
                 ExceptionHandler.log(e);
