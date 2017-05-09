@@ -7,7 +7,7 @@ import java.util.List;
 /* 
 Построй дерево(1)
 */
-public class CustomTree extends AbstractList<String> implements Serializable, Cloneable {
+public class CustomTree extends AbstractList<String> implements Cloneable, Serializable {
     public static void main(String[] args) {
         List<String> list = new CustomTree();
         for (int i = 1; i < 16; i++) {
