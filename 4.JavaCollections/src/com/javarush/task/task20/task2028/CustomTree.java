@@ -9,6 +9,8 @@ import java.util.List;
 Построй дерево(1)
 */
 public class CustomTree extends AbstractList<String> implements Cloneable, Serializable {
+    Entry<String> root;
+
     public static void main(String[] args) {
         List<String> list = new CustomTree();
         for (int i = 1; i < 16; i++) {
@@ -40,7 +42,7 @@ public class CustomTree extends AbstractList<String> implements Cloneable, Seria
     public String remove(int index) {
         throw new UnsupportedOperationException();
     }
-
+        
     public List<String> subList(int fromIndex, int toIndex) {
         throw new UnsupportedOperationException();
     }
@@ -51,5 +53,30 @@ public class CustomTree extends AbstractList<String> implements Cloneable, Seria
 
     public boolean addAll(int index, Collection<? extends String> c) {
         throw new UnsupportedOperationException();
+    }
+
+    static class Entry<T> implements Serializable {
+        String elementName;
+        int lineNumber;
+        boolean availableToAddLeftChildren;
+        boolean availableToAddRightChildren;
+        Entry<T> parent;
+        Entry<T> leftChild;
+        Entry<T> rightChild;
+
+        public Entry(String elementName) {
+            this.elementName = elementName;
+            availableToAddLeftChildren = true;
+            availableToAddRightChildren = true;
+        }
+
+        public void checkChildren() {
+            availableToAddLeftChildren = leftChild == null;
+            availableToAddRightChildren = rightChild == null;
+        }
+
+        public boolean isAvailableToAddChildren() {
+            return availableToAddLeftChildren || availableToAddRightChildren;
+        }
     }
 }
