@@ -32,8 +32,14 @@ public class AmigoSet<E> extends AbstractSet<E> implements Set<E>, Serializable,
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    public AmigoSet<E> clone() throws CloneNotSupportedException {
+        try {
+            HashMap<E, Object> result = (HashMap<E, Object>) map.clone();
+            return new AmigoSet<>(result.keySet());
+        }
+        catch (Exception e) {
+            throw new InternalError();
+        }
     }
 
     @Override
