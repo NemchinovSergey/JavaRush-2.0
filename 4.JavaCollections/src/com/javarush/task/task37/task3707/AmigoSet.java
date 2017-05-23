@@ -42,4 +42,23 @@ public class AmigoSet<E> extends AbstractSet<E> implements Set<E>, Serializable,
         map.put(e, PRESENT);
         return true;
     }
+
+    @Override
+    public boolean contains(Object o) {
+        return map.containsKey(o);
+    }
+
+    @Override
+    public void clear() {
+        map.clear();
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        if (map.containsKey(o)) {
+            map.remove(o);
+            return true;
+        }
+        return false;
+    }
 }
