@@ -1,4 +1,18 @@
-taskKey="com.javarush.task.task37.task3707.big05"
+taskKey="com.javarush.task.task37.task3707.big06"
+
+AmigoSet (6)
+
+Открой исходники HashSet (если у тебя нет исходников джавы, то скачай их и подключи), сравни со своим кодом.
+Быстро это можно сделать сравнив через буфер. Скопируй код класса HashSet в буфер.
+Зайди в класс AmigoSet, далее правая кнопка мыши -> Compare with Clipboard.
+
+Ты только что реализовал сет, аналогичный HashSet. Теперь будешь знать, как внутри устроен HashSet.
+Молодец, теперь коллекции тебе не страшны!
+
+
+Требования:
+1.	Поздравляю, ты написал собственную реализацию множества и изучил HashSet во всех деталях!
+
 
 AmigoSet (5)
 
@@ -17,13 +31,6 @@ AmigoSet (5)
 
 2. Помнишь, что такое transient?
 
-
-Требования:
-1.	В классе AmigoSet должен содержаться private метод writeObject с одним параметром типа ObjectOutputStream.
-2.	В классе AmigoSet должен содержаться private метод readObject с одним параметром типа ObjectInputStream.
-3.	Объект сериализованный с помощью метода writeObject должен быть равен объекту десериализованному с помощью метода readObject.
-4.	В методе writeObject должен быть вызван метод defaultWriteObject на объекте типа ObjectOutputStream полученном в качестве параметра.
-5.	В методе readObject должен быть вызван метод defaultReadObject на объекте типа ObjectInputStream полученном в качестве параметра.
 
 
 AmigoSet (4)

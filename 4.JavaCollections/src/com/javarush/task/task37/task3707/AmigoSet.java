@@ -79,6 +79,7 @@ public class AmigoSet<E> extends AbstractSet<E> implements Set<E>, Serializable,
 
         out.writeInt(capacity);
         out.writeFloat(loadFactor);
+        out.writeInt(map.size());
 
         for (E key : map.keySet()) {
             out.writeObject(key);
@@ -90,9 +91,11 @@ public class AmigoSet<E> extends AbstractSet<E> implements Set<E>, Serializable,
 
         int capacity = in.readInt();
         float loadFactor = in.readFloat();
+        int size = in.readInt();
+
         map = new HashMap<>(capacity, loadFactor);
 
-        for (int i = 0; i < capacity; i++) {
+        for (int i = 0; i < size; i++) {
             E key = (E)in.readObject();
             map.put(key, PRESENT);
         }
