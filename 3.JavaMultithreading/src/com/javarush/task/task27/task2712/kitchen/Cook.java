@@ -17,7 +17,7 @@ public class Cook extends Observable implements Observer
         this.name = name;
     }
 
-    public void update(Observable observable, Object arg)
+    public void update(Observable tablet, Object arg)
     {
         ConsoleHelper.writeMessage(String.format("Start cooking - %s", arg));
         setChanged();

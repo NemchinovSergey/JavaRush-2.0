@@ -23,8 +23,7 @@ public class Order {
 
     @Override
     public String toString() {
-        if (dishes.isEmpty()) return "";
-        return "Your order: " + dishes + " of " + tablet;
+        return dishes.isEmpty() ? "" : "Your order: " + dishes + " of " + tablet;
     }
 
     public int getTotalCookingTime() {
