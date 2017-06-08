@@ -1,18 +1,51 @@
 package com.javarush.task.task27.task2712.kitchen;
 
+import com.javarush.task.task27.task2712.ConsoleHelper;
 import com.javarush.task.task27.task2712.Tablet;
 
 import java.io.IOException;
 import java.util.List;
 
 public class Order {
-    private final int number;
     protected List<Dish> dishes;
-    private final Tablet tablet;
+    private Tablet tablet;
+
 
     public Order(Tablet tablet) throws IOException {
         this.tablet = tablet;
-        number = 0;
+        initDishes();
     }
+
+    protected void initDishes() throws IOException {
+        ConsoleHelper.writeMessage(Dish.allDishesToString());
+        dishes = ConsoleHelper.getAllDishesForOrder();
+    }
+
+    @Override
+    public String toString() {
+        if (dishes.isEmpty()) return "";
+        return "Your order: " + dishes + " of " + tablet;
+    }
+
+    public int getTotalCookingTime() {
+        int sum = 0;
+        for (Dish d : dishes) {
+            sum += d.getDuration();
+        }
+        return sum;
+    }
+
+    public boolean isEmpty() {
+        return dishes.isEmpty();
+    }
+
+    public Tablet getTablet() {
+        return tablet;
+    }
+
+    public List<Dish> getDishes() {
+        return dishes;
+    }
+
 
 }
