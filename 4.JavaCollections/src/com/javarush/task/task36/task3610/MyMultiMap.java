@@ -86,9 +86,12 @@ public class MyMultiMap<K, V> extends HashMap<K, V> implements Cloneable, Serial
 
     @Override
     public boolean containsValue(Object value) {
-        // Бестолково, но красиво, т.к. искомое значение может быть в самом начале,
-        // однако values() вынуждено собирать все значения
-        return values().contains(value);
+        for (List<V> list : map.values()) {
+            if (list.contains(value)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
