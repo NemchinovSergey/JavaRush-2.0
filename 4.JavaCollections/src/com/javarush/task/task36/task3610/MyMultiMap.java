@@ -15,9 +15,7 @@ public class MyMultiMap<K, V> extends HashMap<K, V> implements Cloneable, Serial
 
     @Override
     public int size() {
-        final int[] size = {0};
-        map.values().forEach(vs -> size[0] += vs.size());
-        return size[0];
+        return values().size();
     }
 
     @Override
@@ -78,10 +76,7 @@ public class MyMultiMap<K, V> extends HashMap<K, V> implements Cloneable, Serial
 
     @Override
     public Collection<V> values() {
-        //напишите тут ваш код
-        List<V> list = new ArrayList<>();
-        map.values().forEach(list::addAll);
-        return list;
+        return map.values().stream().collect(ArrayList::new, List::addAll, List::addAll);
     }
 
     @Override
@@ -91,6 +86,8 @@ public class MyMultiMap<K, V> extends HashMap<K, V> implements Cloneable, Serial
 
     @Override
     public boolean containsValue(Object value) {
+        // Бестолково, но красиво, т.к. искомое значение может быть в самом начале,
+        // однако values() вынуждено собирать все значения
         return values().contains(value);
     }
 
