@@ -19,7 +19,7 @@ public class Solution {
         System.out.println(map);                        //expected: {0=0, 1=1, 2=2, 3=3, 4=4, 5=56, 57, 58, 6=6}
         System.out.println(map.size());                 //expected: size = 9
 
-        System.out.println(map.remove(5));              //expected: 56
+        System.out.println(map.remove(5));         //expected: 56
         System.out.println(map);                        //expected: {0=0, 1=1, 2=2, 3=3, 4=4, 5=57, 58, 6=6}
         System.out.println(map.size());                 //expected: size = 8
 
