@@ -1,5 +1,6 @@
 package com.javarush.task.task36.task3611;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /* 
@@ -20,7 +21,33 @@ public class Solution {
     }
 
     public Set<Integer> getAllFriendsAndPotentialFriends(int index, int deep) {
-        //напишите тут ваш код
+        if (deep < 1) {
+            return new HashSet<>();
+        }
+
+        Set<Integer> friendsAndPotential = new HashSet<>();
+
+        for (int i = 0; i < humansRelationships.length; i++) {
+            if (i == index) continue; // себя пропускаем
+
+            if ((i < index) && (index < humansRelationships.length) && humansRelationships[index][i]) {
+                friendsAndPotential.add(i);
+            } else if ((i > index) && humansRelationships[i][index]) {
+                friendsAndPotential.add(i);
+            }
+        }
+
+        // чтобы не делать пустых вызовов рекурсии проверяем текущую глубину
+        if (deep > 1) {
+            // проходим по всем своим друзьям и добавляем их друзей
+            for (Integer frend : new HashSet<>(friendsAndPotential)) {
+                friendsAndPotential.addAll(getAllFriendsAndPotentialFriends(frend, deep - 1));
+            }
+        }
+
+        friendsAndPotential.remove(index);
+
+        return friendsAndPotential;
     }
 
     //remove people from set, with which you have already had relationship
@@ -38,14 +65,14 @@ public class Solution {
     //return test data
     private static boolean[][] generateRelationships() {
         return new boolean[][]{
-                {true},                                                                 //0
-                {true, true},                                                           //1
-                {false, true, true},                                                    //2
-                {false, false, false, true},                                            //3
-                {true, true, false, true, true},                                        //4
-                {true, false, true, false, false, true},                                //5
-                {false, false, false, false, false, true, true},                        //6
-                {false, false, false, true, false, false, false, true}                  //7
-        };
+                {true},                                                 //0
+                {true,  true},                                          //1
+                {false, true,  true},                                   //2
+                {false, false, false, true},                            //3
+                {true,  true,  false, true,  true},                     //4
+                {true,  false, true,  false, false, true},              //5
+                {false, false, false, false, false, true,  true},       //6
+                {false, false, false, true,  false, false, false, true} //7
+        };    //   0      1      2      3      4      5      6      7
     }
 }
