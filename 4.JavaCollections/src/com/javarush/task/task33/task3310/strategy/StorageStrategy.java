@@ -1,5 +1,6 @@
 package com.javarush.task.task33.task3310.strategy;
 
+/** Стратегия хранения данных */
 public interface StorageStrategy {
 
     /** Должен вернуть true, если хранилище содержит переданный ключ */
