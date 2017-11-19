@@ -1,7 +1,7 @@
 package com.javarush.task.task37.task3704;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 /* 
 Фикс бага
@@ -48,6 +48,6 @@ text 1
     }
 
     public static Map getExpectedMap() {
-        return new TreeMap();
+        return new HashMap();
     }
 }
