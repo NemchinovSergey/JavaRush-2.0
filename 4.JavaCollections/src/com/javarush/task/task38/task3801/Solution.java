@@ -9,12 +9,15 @@ public class Solution {
         if (args.length > 0) {
             try {
                 System.out.println("Имя содержит " + NameChecker.getNumberOfCharacters(args[0]) + " символов");
-            } catch (Exception e) {
-                System.out.println(e.toString());
-            } catch (NameIsNullException e) {
+            }
+            catch (NameIsNullException e) {
                 System.out.println("Ошибка: Имя не задано");
-            } catch (NameIsEmptyException e) {
+            }
+            catch (NameIsEmptyException e) {
                 System.out.println("Ошибка: Имя пустое");
+            }
+            catch (Exception e) {
+                System.out.println(e.toString());
             }
         }
     }
