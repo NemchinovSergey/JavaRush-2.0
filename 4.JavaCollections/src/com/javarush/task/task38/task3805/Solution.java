@@ -12,11 +12,8 @@ public class Solution {
             connection = new ConnectionMock();
             connection.connect();
         }
-        catch (WrongDataException e) {
-            throw new SolutionException("WrongDataException: " + e.getMessage());
-        }
-        catch (ConnectionException e) {
-            throw new SolutionException("ConnectionException: " + e.getMessage());
+        catch (WrongDataException | ConnectionException e) {
+            throw new SolutionException(e.getMessage());
         }
     }
 
@@ -24,11 +21,8 @@ public class Solution {
         try {
             connection.write(data);
         }
-        catch (WrongDataException e) {
-            throw new SolutionException("WrongDataException: " + e.getMessage());
-        }
-        catch (ConnectionException e) {
-            throw new SolutionException("ConnectionException: " + e.getMessage());
+        catch (WrongDataException | ConnectionException e) {
+            throw new SolutionException(e.getMessage());
         }
     }
 
@@ -36,11 +30,8 @@ public class Solution {
         try {
             return connection.read();
         }
-        catch (WrongDataException e) {
-            throw new SolutionException("WrongDataException: " + e.getMessage());
-        }
-        catch (ConnectionException e) {
-            throw new SolutionException("ConnectionException: " + e.getMessage());
+        catch (WrongDataException | ConnectionException e) {
+            throw new SolutionException(e.getMessage());
         }
     }
 
@@ -48,11 +39,8 @@ public class Solution {
         try {
             connection.disconnect();
         }
-        catch (WrongDataException e) {
-            throw new SolutionException("WrongDataException: " + e.getMessage());
-        }
-        catch (ConnectionException e) {
-            throw new SolutionException("ConnectionException: " + e.getMessage());
+        catch (WrongDataException | ConnectionException e) {
+            throw new SolutionException(e.getMessage());
         }
     }
 
