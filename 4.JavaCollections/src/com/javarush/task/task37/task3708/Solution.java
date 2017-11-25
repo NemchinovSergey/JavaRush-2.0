@@ -1,6 +1,7 @@
 package com.javarush.task.task37.task3708;
 
 import com.javarush.task.task37.task3708.retrievers.CachingProxyRetriever;
+import com.javarush.task.task37.task3708.retrievers.OriginalRetriever;
 import com.javarush.task.task37.task3708.retrievers.Retriever;
 import com.javarush.task.task37.task3708.storage.FarAwayStorage;
 import com.javarush.task.task37.task3708.storage.Storage;
