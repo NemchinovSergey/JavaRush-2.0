@@ -1,6 +1,6 @@
 package com.javarush.task.task37.task3705;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Map;
 
 /* 
@@ -28,7 +28,7 @@ map does NOT contain the value for key = null
     }
 
     public static Map getExpectedMap() {
-        return new Hashtable();
+        return new HashMap();
     }
 
     public static void checkObject(Map map, Object key) {
