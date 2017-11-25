@@ -18,12 +18,13 @@ public class Solution {
     }
 
     public class SubSolution extends Solution {
-        @SafeVarargs
+
+        @Override
         public void overriddenMethod() {
             System.out.println(uncheckedCall());
         }
 
-        @Override
+        @SuppressWarnings("unchecked")
         List uncheckedCall() {
             List list = new ArrayList();
             list.add("hello");
