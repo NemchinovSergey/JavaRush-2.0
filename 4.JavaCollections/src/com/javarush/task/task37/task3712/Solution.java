@@ -1,6 +1,7 @@
 package com.javarush.task.task37.task3712;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /* 
 Шаблонный метод
