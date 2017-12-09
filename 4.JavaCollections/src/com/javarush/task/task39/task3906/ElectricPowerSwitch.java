@@ -1,18 +1,18 @@
 package com.javarush.task.task39.task3906;
 
 public class ElectricPowerSwitch {
-    private SecuritySystem securitySystem;
+    private Switchable switchable;
 
-    public ElectricPowerSwitch(SecuritySystem securitySystem) {
-        this.securitySystem = securitySystem;
+    public ElectricPowerSwitch(Switchable switchable) {
+        this.switchable = switchable;
     }
 
     public void press() {
         System.out.println("Pressed the power switch.");
-        if (securitySystem.isOn()) {
-            securitySystem.turnOff();
+        if (switchable.isOn()) {
+            switchable.turnOff();
         } else {
-            securitySystem.turnOn();
+            switchable.turnOn();
         }
     }
 }
