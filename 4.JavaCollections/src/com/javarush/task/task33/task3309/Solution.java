@@ -8,8 +8,6 @@ import org.w3c.dom.NodeList;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -26,6 +24,11 @@ import java.util.regex.Pattern;
 */
 public class Solution {
     final static Logger log = Logger.getLogger(Solution.class.getSimpleName());
+
+    public static void main(String[] args) throws Exception {
+        //System.out.println(toXmlWithComment(new AnExample(), "needCDATA", "it's a comment"));
+        //System.out.println(toXmlWithComment(new First(), "second", "it's a comment"));
+    }
 
     public static String toXmlWithComment(Object obj, String tagName, String comment) {
         try {
@@ -77,21 +80,5 @@ public class Solution {
         for (int i = 0; i < list.getLength(); i++) {
             replaceTextWithCDATA(list.item(i), doc);
         }
-    }
-
-    public static void main(String[] args) throws Exception {
-        String result = toXmlWithComment(new AnExample(), "needCDATA", "it's a comment");
-        System.out.println(result);
-    }
-
-    @XmlType(name = "anExample")
-    @XmlRootElement
-    public static class AnExample {
-        public String[] needCDATA = new String[]{"need CDATA because of < and >", "", "ooo"};
-        public String st = "sdf";
-        public String st2 = "sdf";
-        public int ist = 2;
-        public int ist2 = 23523;
-        public int ist5 = 23;
     }
 }
