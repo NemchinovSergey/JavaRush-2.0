@@ -5,14 +5,4 @@ public class RobotWorker implements Worker {
     public void work() {
         System.out.println("RobotWorker is working!");
     }
-
-    @Override
-    public void eat() {
-        //do nothing
-    }
-
-    @Override
-    public void sleep() {
-        //do nothing
-    }
 }
