@@ -1,46 +1,97 @@
 package com.javarush.task.task33.task3309;
 
+import org.w3c.dom.Comment;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.StringWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 /*
 Комментарий внутри xml
-
-http://help.javarush.ru/questions/178228/com-javarush-task-task33-task3309-%D1%85%D0%B8%D0%BD%D1%82%D1%8B-%D0%B8-%D0%BF%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D0%B7%D0%BA%D0%B8
-Для тех кто придет сюда за помощью и пониманием:
-
-- Сериализация ojb в xml может содержать CDATA - сериализация будет содержать CDATA,
-только в том случае если вы сами ее туда "запихнете". Средствами jaxb этого сделать нельзя.
-Наиболее простой способ это сделать - использовать библиотеку org.w3c.dom (присутствует в java c JDK1.4).
-- Вывод из п.1 - маршалить надо не в StringWriter, a в DOM документ.
-- В DOM документе есть Node-ы, вот с ними в этой задаче и предстоит работать (заменить текстовые на CDATA,
-где есть escape символы (их в xml всего 5 - <>'"&) и добавить комментарии. ПАРСИТЬ ничего не надо!!!
-просто работайте с Node-ами. На этом этапе вас интересуют Node.TEXT_NODE, Node.CDATA_SECTION_NODE и Node.COMMENT_NODE.
-- Поиск текстовых Node с escape символами можно осуществить при помощи простого regex:
-".*[<>&'"].*"
-- После того как вы все нашли, заэскейпили и добавили комментарии,
-нужно как-то все это "слить" в XML - в помощь вам javax.xml.transform (since JDK 1.5).
-- В конце получившийся XML документ нужно превратить в строку с помощью StringWriter-a.
-
-P.S.:
-- standalone для xml документа выставляется в DOM документе, а charset - в трансформере.
-- метод main не участвует в проверке валидатором.
-
-P.P.S:
-- небольшая помощь в виде ссылки
-https://examples.javacodegeeks.com/core-java/xml/dom/add-comment-to-dom-document/
-
 */
-
-
 public class Solution {
-    public static String toXmlWithComment(Object obj, String tagName, String comment) throws JAXBException {
+    final static Logger log = Logger.getLogger(Solution.class.getSimpleName());
+
+    public static String toXmlWithComment(Object obj, String tagName, String comment) {
+        try {
+            JAXBContext context = JAXBContext.newInstance(obj.getClass());
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+            marshaller.marshal(obj, doc);
+
+            NodeList nodes = doc.getElementsByTagName("*");
+
+            for (int i = 0; i < nodes.getLength(); i++) {
+                Node node = nodes.item(i);
+
+                if (node.getNodeName().equals(tagName)) {
+                    Comment com = doc.createComment(comment);
+                    node.getParentNode().insertBefore(com, node);
+                }
+                replaceTextWithCDATA(node, doc);
+            }
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+
+            StringWriter sw = new StringWriter();
+            transformer.transform(new DOMSource(doc), new StreamResult(sw));
+            return sw.toString();
+
+        }
+        catch (JAXBException e) {
+            log.log(Level.INFO, "JAXBException: " + e);
+        }
+        catch (Exception e) {
+            log.log(Level.SEVERE, "Exception: " + e);
+            e.printStackTrace();
+        }
         return null;
     }
 
-    public static void main(String[] args) throws JAXBException {
+    private static void replaceTextWithCDATA(Node node, Document doc) {
+        if ((node.getNodeType() == 3) && (Pattern.compile("[<>&'\"]").matcher(node.getTextContent()).find())) {
 
+            Node cnode = doc.createCDATASection(node.getNodeValue());
+            node.getParentNode().replaceChild(cnode, node);
+        }
+
+        NodeList list = node.getChildNodes();
+
+        for (int i = 0; i < list.getLength(); i++) {
+            replaceTextWithCDATA(list.item(i), doc);
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        String result = toXmlWithComment(new AnExample(), "needCDATA", "it's a comment");
+        System.out.println(result);
+    }
+
+    @XmlType(name = "anExample")
+    @XmlRootElement
+    public static class AnExample {
+        public String[] needCDATA = new String[]{"need CDATA because of < and >", "", "ooo"};
+        public String st = "sdf";
+        public String st2 = "sdf";
+        public int ist = 2;
+        public int ist2 = 23523;
+        public int ist5 = 23;
     }
 }

@@ -6,7 +6,7 @@ taskKey="com.javarush.task.task33.task3309"
 В строке перед каждым тегом tagName должен быть вставлен комментарий comment.
 Сериализация obj в xml может содержать CDATA с искомым тегом. Перед ним вставлять комментарий не нужно.
 
-Пример вызова: toXmlWithComment(firstSecondObject, "second", "it's a comment")
+Пример вызова:  toXmlWithComment(firstSecondObject, "second", "it's a comment")
 Пример результата:
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <first>
