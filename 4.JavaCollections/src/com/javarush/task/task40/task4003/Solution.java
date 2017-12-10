@@ -1,8 +1,12 @@
 package com.javarush.task.task40.task4003;
 
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import java.util.Properties;
 
 /* 
@@ -51,6 +55,19 @@ public class Solution {
     }
 
     public static void setAttachment(Message message, String filename) throws MessagingException {
-        message.setText(filename);
+        MimeBodyPart p1 = new MimeBodyPart();
+        p1.setText(filename);
+
+        // Добавление файла во вторую часть
+        FileDataSource fds = new FileDataSource(filename);
+        p1.setDataHandler(new DataHandler(fds));
+        p1.setFileName(fds.getName());
+
+        // Создание экземпляра класса Multipart. Добавление частей сообщения в него.
+        Multipart mp = new MimeMultipart();
+        mp.addBodyPart(p1);
+
+        // Установка экземпляра класса Multipart в качестве контента документа
+        message.setContent(mp);
     }
 }
