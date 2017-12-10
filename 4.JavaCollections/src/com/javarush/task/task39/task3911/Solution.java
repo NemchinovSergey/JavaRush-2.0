@@ -8,6 +8,8 @@ Rollback
 
 public class Solution {
     public static void main(String[] args) {
+        Software software = new Software();
+
         int n = 3;
         for (int i = 1; i < 7; i++) {
             software.addNewVersion(i, "description of version #" + i);

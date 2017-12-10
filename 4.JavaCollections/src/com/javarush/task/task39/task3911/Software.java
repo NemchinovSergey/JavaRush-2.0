@@ -25,6 +25,25 @@ public class Software {
     }
 
     public boolean rollback(int rollbackVersion) {
-        return true;
+        if (!versionHistoryMap.containsKey(rollbackVersion)) {
+            return false;
+        }
+        else {
+            // мой вариант
+            for (int i = currentVersion; i > rollbackVersion; i--) {
+                versionHistoryMap.remove(i);
+            }
+            currentVersion = rollbackVersion;
+            return true;
+
+            // вариант от другого участника JavaRush
+            /* currentVersion = rollbackVersion;
+            Iterator<Integer> iterator = versionHistoryMap.keySet().iterator();
+            while (iterator.hasNext()) {
+                if (iterator.next()>rollbackVersion) {
+                    iterator.remove();
+                }
+            } */
+        }
     }
 }
