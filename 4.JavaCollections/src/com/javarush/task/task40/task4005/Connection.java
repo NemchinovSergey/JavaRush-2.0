@@ -18,15 +18,18 @@ public class Connection implements Closeable {
 
     public Connection(Socket socket) throws Exception {
         this.socket = socket;
-        this.in = new ObjectInputStream(socket.getInputStream());
         this.out = new ObjectOutputStream(socket.getOutputStream());
+        out.flush();
+        this.in = new ObjectInputStream(socket.getInputStream());
     }
 
     public void send(String message) throws Exception {
+        System.out.println("Connection: Try write to out");
         out.writeObject(message);
     }
 
     public String receive() throws Exception {
+        System.out.println("Connection: Try read from in");
         return (String) in.readObject();
     }
 
