@@ -1,11 +1,13 @@
 package com.javarush.task.task35.task3513;
 
+
 import java.awt.*;
 
 public class Tile {
     int value;
 
     public Tile() {
+        this.value = 0;
     }
 
     public Tile(int value) {
@@ -17,51 +19,37 @@ public class Tile {
     }
 
     public Color getFontColor() {
-        return value < 16 ? new Color(0x776e65) : new Color(0xf9f6f2);
+        if (value < 16) return new Color(0x776e65);
+        else return new Color(0xf9f6f2);
     }
 
     public Color getTileColor() {
-        int color;
         switch (value) {
             case 0:
-                color = 0xcdc1b4;
-                break;
+                return new Color(0xcdc1b4);
             case 2:
-                color = 0xeee4da;
-                break;
+                return new Color(0xeee4da);
             case 4:
-                color = 0xede0c8;
-                break;
+                return new Color(0xede0c8);
             case 8:
-                color = 0xf2b179;
-                break;
+                return new Color(0xf2b179);
             case 16:
-                color = 0xf59563;
-                break;
+                return new Color(0xf59563);
             case 32:
-                color = 0xf67c5f;
-                break;
+                return new Color(0xf67c5f);
             case 64:
-                color = 0xf65e3b;
-                break;
+                return new Color(0xf65e3b);
             case 128:
-                color = 0xedcf72;
-                break;
+                return new Color(0xedcf72);
             case 256:
-                color = 0xedcc61;
-                break;
+                return new Color(0xedcc61);
             case 512:
-                color = 0xedc850;
-                break;
+                return new Color(0xedc850);
             case 1024:
-                color = 0xedc53f;
-                break;
+                return new Color(0xedc53f);
             case 2048:
-                color = 0xedc22e;
-                break;
-            default:
-                color = 0xff0000;
+                return new Color(0xedc22e);
         }
-        return new Color(color);
+        return new Color(0xff0000);
     }
 }
