@@ -25,10 +25,10 @@ public class Controller {
     }
 
     public void scan() {
-        List<Vacancy> vacancies = new ArrayList<Vacancy>();
+        List<Vacancy>  vacancies = new ArrayList<>();
         try {
             for (Provider provider : providers) {
-                vacancies.addAll(provider.getJavaVacancies("java"));
+                vacancies.addAll(provider.getJavaVacancies("Новосибирск"));
             }
             System.out.println(vacancies.size());
         }
