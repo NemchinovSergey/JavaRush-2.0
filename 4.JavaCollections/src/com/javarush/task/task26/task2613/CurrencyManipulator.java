@@ -25,4 +25,12 @@ public class CurrencyManipulator {
         }
         denominations.put(denomination, val);
     }
+
+    public int getTotalAmount() {
+        int count = 0;
+        for (Map.Entry<Integer, Integer> item : denominations.entrySet()) {
+            count += item.getKey() * item.getValue();
+        }
+        return count;
+    }
 }
