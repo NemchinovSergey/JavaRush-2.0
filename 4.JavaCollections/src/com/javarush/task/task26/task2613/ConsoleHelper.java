@@ -14,16 +14,16 @@ public class ConsoleHelper {
     }
 
     public static String readString() throws InterruptOperationException {
-        String res = null;
+        String result = null;
         try {
-            res = bis.readLine();
-            if (res.toUpperCase().contains("EXIT")) {
+            result = bis.readLine();
+            if (result.toUpperCase().contains("EXIT")) {
                 throw new InterruptOperationException();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return res;
+        return result;
     }
 
     public static String askCurrencyCode() throws InterruptOperationException {
@@ -42,23 +42,16 @@ public class ConsoleHelper {
         while (true) {
             writeMessage("Введите номинал банкноты и количество банкнот (2 положительных числа через пробел):");
             String s = readString();
-            String[] res = s.split(" ");
-            if (res.length != 2) {
-                writeMessage("Ошибка ввода. Повторите.");
-            } else {
-                try {
-                    long value = Long.parseLong(res[0]);
-                } catch (NumberFormatException e) {
-                    writeMessage("Ошибка ввода. Повторите.");
-                    continue;
-                }
-                try {
-                    long value = Long.parseLong(res[1]);
-                } catch (NumberFormatException e) {
-                    writeMessage("Ошибка ввода. Повторите.");
-                    continue;
-                }
-                return res;
+            String[] result = s.split(" ");
+
+            try {
+                if (result.length == 2
+                        && Integer.parseInt(result[0]) > 0 && Integer.parseInt(result[1]) > 0
+                        ) {
+                    return result;
+                } else writeMessage("Please specify valid data.");
+            } catch (NumberFormatException e) {
+                writeMessage("Please specify valid data.");
             }
         }
     }
