@@ -15,7 +15,7 @@ public class Model {
 
     int currentLevel = 1;
 
-    LevelLoader levelLoader = new LevelLoader(Paths.get("E:\\JAVA\\JavaRushHomeWork_darkside\\JavaRushTasks\\4.JavaCollections\\src\\com\\javarush\\task\\task34\\task3410\\res\\levels.txt"));
+    LevelLoader levelLoader = new LevelLoader(Paths.get("D:/DEV/MyJavaRush 2.0/JavaRushTasks/4.JavaCollections/src/com/javarush/task/task34/task3410/res/levels.txt"));
 
 
     public void setEventListener(EventListener eventListener) {
