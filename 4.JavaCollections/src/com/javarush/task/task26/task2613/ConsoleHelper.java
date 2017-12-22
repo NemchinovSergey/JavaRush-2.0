@@ -27,8 +27,7 @@ public class ConsoleHelper {
             String code = readString();
             if (code.length() == 3) {
                 return code.toUpperCase();
-            }
-            else {
+            } else {
                 writeMessage("Введен некорректный код валюты");
             }
         }
@@ -41,24 +40,39 @@ public class ConsoleHelper {
             String[] res = s.split(" ");
             if (res.length != 2) {
                 writeMessage("Ошибка ввода. Повторите.");
-            }
-            else {
+            } else {
                 try {
                     int value = Integer.parseInt(res[0]);
-                }
-                catch (NumberFormatException e) {
+                } catch (NumberFormatException e) {
                     writeMessage("Введен некорректный номинал банкноты.");
                     continue;
                 }
                 try {
                     int value = Integer.parseInt(res[0]);
-                }
-                catch (NumberFormatException e) {
+                } catch (NumberFormatException e) {
                     writeMessage("Введено некорректное количество банкнот.");
                     continue;
                 }
                 return res;
             }
+        }
+    }
+
+    public static Operation askOperation() {
+        while (true) {
+            writeMessage("Выберите операцию:");
+            writeMessage("\t1 - INFO");
+            writeMessage("\t2 - DEPOSIT");
+            writeMessage("\t3 - WITHDRAW");
+            writeMessage("\t4 - EXIT");
+            Operation operation;
+            try {
+                operation = Operation.getAllowableOperationByOrdinal(Integer.parseInt(readString()));
+            } catch (IllegalArgumentException e) {
+                writeMessage("Введен некорректный номер операции.");
+                continue;
+            }
+            return operation;
         }
     }
 }
