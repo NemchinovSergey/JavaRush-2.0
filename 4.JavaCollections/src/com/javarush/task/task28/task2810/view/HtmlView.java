@@ -20,7 +20,8 @@ public class HtmlView implements View {
     public void update(List<Vacancy> vacancies) {
         try {
             updateFile(getUpdatedFileContent(vacancies));
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -74,7 +75,8 @@ public class HtmlView implements View {
             }
 
             return doc.html();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
             return "Some exception occurred";
         }
@@ -89,10 +91,9 @@ public class HtmlView implements View {
     }
 
     private void updateFile(String fileContent) {
-        if (fileContent == null || fileContent.isEmpty()) {
+        if (fileContent == null || fileContent.length() == 0) {
             return;
         }
-
         try (
                 //////BufferedWriter writer = new BufferedWriter(new FileWriter(Paths.get(filePath).toAbsolutePath().normalize().toFile()))
 
