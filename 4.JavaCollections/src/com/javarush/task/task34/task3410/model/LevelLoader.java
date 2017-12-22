@@ -21,15 +21,70 @@ public class LevelLoader {
         Set<Wall> walls = new HashSet<>();
         Set<Box> boxes = new HashSet<>();
         Set<Home> homes = new HashSet<>();
+        Player player = null;
 
-        walls.add(new Wall(5 * FIELD_CELL_SIZE / 2, 10 * FIELD_CELL_SIZE / 2));
-        walls.add(new Wall(10 * FIELD_CELL_SIZE / 2, 5 * FIELD_CELL_SIZE / 2));
+        int loopLevel;
+        if (level > 60) {
+            loopLevel = level % 60;
+        } else {
+            loopLevel = level;
+        }
 
-        boxes.add(new Box(5 * FIELD_CELL_SIZE / 2, 10 * FIELD_CELL_SIZE / 2));
+        try (BufferedReader reader = new BufferedReader(new FileReader(levels.toFile()))) {
+            int readLevel = 0;
+            int x;
+            int y = FIELD_CELL_SIZE / 2;
+            boolean isLevelMap = false;
 
-        homes.add(new Home(5 * FIELD_CELL_SIZE / 2, 10 * FIELD_CELL_SIZE / 2));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.contains("Maze:")) {
+                    readLevel = Integer.valueOf(line.split(" ")[1]);
+                    continue;
+                }
+                if (readLevel == loopLevel) {
+                    if (line.length() == 0) {
+                        boolean isEnd = isLevelMap;
 
-        Player player = new Player(5 * FIELD_CELL_SIZE / 2, 10 * FIELD_CELL_SIZE / 2);
+                        isLevelMap = !isLevelMap;
+
+                        if (isEnd && !isLevelMap) {
+                            break;
+                        } else {
+                            continue;
+                        }
+                    }
+                    if (isLevelMap) {
+                        x = FIELD_CELL_SIZE / 2;
+
+                        char[] chars = line.toCharArray();
+                        for (char c : chars) {
+                            switch (c) {
+                                case 'X':
+                                    walls.add(new Wall(x, y));
+                                    break;
+                                case '*':
+                                    boxes.add(new Box(x, y));
+                                    break;
+                                case '.':
+                                    homes.add(new Home(x, y));
+                                    break;
+                                case '&':
+                                    boxes.add(new Box(x, y));
+                                    homes.add(new Home(x, y));
+                                    break;
+                                case '@':
+                                    player = new Player(x, y);
+                            }
+                            x += FIELD_CELL_SIZE;
+                        }
+                        y += FIELD_CELL_SIZE;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return new GameObjects(walls, boxes, homes, player);
     }
