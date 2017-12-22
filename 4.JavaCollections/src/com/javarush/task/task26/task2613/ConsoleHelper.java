@@ -20,4 +20,45 @@ public class ConsoleHelper {
         }
         return res;
     }
+
+    public static String askCurrencyCode() {
+        while (true) {
+            writeMessage("Ведите код валюты (3 символа):");
+            String code = readString();
+            if (code.length() == 3) {
+                return code.toUpperCase();
+            }
+            else {
+                writeMessage("Введен некорректный код валюты");
+            }
+        }
+    }
+
+    public static String[] getValidTwoDigits(String currencyCode) {
+        while (true) {
+            writeMessage("Введите номинал банкноты и количество банкнот (2 положительных числа через пробел):");
+            String s = readString();
+            String[] res = s.split(" ");
+            if (res.length != 2) {
+                writeMessage("Ошибка ввода. Повторите.");
+            }
+            else {
+                try {
+                    int value = Integer.parseInt(res[0]);
+                }
+                catch (NumberFormatException e) {
+                    writeMessage("Введен некорректный номинал банкноты.");
+                    continue;
+                }
+                try {
+                    int value = Integer.parseInt(res[0]);
+                }
+                catch (NumberFormatException e) {
+                    writeMessage("Введено некорректное количество банкнот.");
+                    continue;
+                }
+                return res;
+            }
+        }
+    }
 }
