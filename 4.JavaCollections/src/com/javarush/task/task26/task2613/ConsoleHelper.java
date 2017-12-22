@@ -47,15 +47,15 @@ public class ConsoleHelper {
                 writeMessage("Ошибка ввода. Повторите.");
             } else {
                 try {
-                    int value = Integer.parseInt(res[0]);
+                    long value = Long.parseLong(res[0]);
                 } catch (NumberFormatException e) {
-                    writeMessage("Введен некорректный номинал банкноты.");
+                    writeMessage("Ошибка ввода. Повторите.");
                     continue;
                 }
                 try {
-                    int value = Integer.parseInt(res[0]);
+                    long value = Long.parseLong(res[1]);
                 } catch (NumberFormatException e) {
-                    writeMessage("Введено некорректное количество банкнот.");
+                    writeMessage("Ошибка ввода. Повторите.");
                     continue;
                 }
                 return res;

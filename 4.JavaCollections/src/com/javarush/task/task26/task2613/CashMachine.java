@@ -12,6 +12,7 @@ public class CashMachine {
 
         Operation operation;
         try {
+            CommandExecutor.execute(Operation.LOGIN);
             do {
                 operation = ConsoleHelper.askOperation();
                 CommandExecutor.execute(operation);
