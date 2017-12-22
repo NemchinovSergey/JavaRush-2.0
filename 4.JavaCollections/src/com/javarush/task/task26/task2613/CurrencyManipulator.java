@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class CurrencyManipulator {
     private String currencyCode;
-    private Map<Integer, Integer> denominations = new HashMap<Integer, Integer>();;  // Map<номинал, количество>
+    private Map<Integer, Integer> denominations = new HashMap<Integer, Integer>();  // Map<номинал, количество>
 
     public CurrencyManipulator(String currencyCode) {
         this.currencyCode = currencyCode;
@@ -19,8 +19,7 @@ public class CurrencyManipulator {
         Integer val = denominations.get(denomination);
         if (val == null) {
             val = count;
-        }
-        else {
+        } else {
             val += count;
         }
         denominations.put(denomination, val);
@@ -32,5 +31,9 @@ public class CurrencyManipulator {
             count += item.getKey() * item.getValue();
         }
         return count;
+    }
+
+    public boolean hasMoney() {
+        return !denominations.isEmpty();
     }
 }
