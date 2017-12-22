@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 
 public class LoginCommand implements Command {
     private ResourceBundle validCreditCards;
+    private ResourceBundle res;
 
     {
         try (BufferedReader reader = new BufferedReader(new FileReader(CashMachine.RESOURCE_PATH + "verifiedCards.properties"))) {
@@ -19,27 +20,31 @@ public class LoginCommand implements Command {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(CashMachine.RESOURCE_PATH + "login_en.properties"))) {
+            res = new PropertyResourceBundle(reader);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void execute() throws InterruptOperationException {
-        while (true) {
-            ConsoleHelper.writeMessage("Введите номер карты (12 цифр):");
+        ConsoleHelper.writeMessage(res.getString("before"));
+        while(true) {
+            ConsoleHelper.writeMessage(res.getString("specify.data"));
             String number = ConsoleHelper.readString();
-            ConsoleHelper.writeMessage("Введите пин-код (4 цифры):");
             String pin = ConsoleHelper.readString();
-            if (number.length() != 12) {
-                ConsoleHelper.writeMessage("Ошибка формата номера карты.");
-                continue;
-            }
-            if (pin.length() != 4) {
-                ConsoleHelper.writeMessage("Ошибка формата пин-кода.");
+            if (number.length() != 12 || pin.length() != 4) {
+                ConsoleHelper.writeMessage(String.format(res.getString("try.again.with.details"), number));
                 continue;
             }
             if (!cardIsOk(number, pin)) {
+                ConsoleHelper.writeMessage(String.format(res.getString("not.verified.format"), number));
+                ConsoleHelper.writeMessage(String.format(res.getString("try.again.or.exit"), number));
                 continue;
             }
-            ConsoleHelper.writeMessage("Верификация прошла успешно.");
+            ConsoleHelper.writeMessage(String.format(res.getString("success.format"), number));
             return;
         }
     }
