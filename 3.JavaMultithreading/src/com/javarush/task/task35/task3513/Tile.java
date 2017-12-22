@@ -19,8 +19,7 @@ public class Tile {
     }
 
     public Color getFontColor() {
-        if (value < 16) return new Color(0x776e65);
-        else return new Color(0xf9f6f2);
+        return value < 16 ? new Color(0x776e65) : new Color(0xf9f6f2);
     }
 
     public Color getTileColor() {

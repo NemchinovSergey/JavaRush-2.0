@@ -3,13 +3,12 @@ package com.javarush.task.task35.task3513;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class Controller extends KeyAdapter{
+public class Controller extends KeyAdapter {
     private Model model;
     private View view;
     private static int WINNING_TILE = 2048;
 
-    public Tile[][] getGameTiles()
-    {
+    public Tile[][] getGameTiles() {
         return model.getGameTiles();
     }
 
@@ -18,27 +17,25 @@ public class Controller extends KeyAdapter{
         this.view = new View(this);
     }
 
-    public int getScore()
-    {
+    public int getScore() {
         return model.score;
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
 
-        if(!model.canMove()) {
+        if (!model.canMove()) {
             view.isGameLost = true;
-           // return;
+            // return;
         }
 
-        switch (e.getKeyCode())
-        {
-            case KeyEvent.VK_ESCAPE: resetGame();
-            break;
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_ESCAPE:
+                resetGame();
+                break;
         }
 
-
-        if(!view.isGameLost && !view.isGameWon) {
+        if (!view.isGameLost && !view.isGameWon) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
                     model.left();
@@ -67,16 +64,14 @@ public class Controller extends KeyAdapter{
             }
         }
 
-        if(model.maxTile == WINNING_TILE)
-        {
+        if (model.maxTile == WINNING_TILE) {
             view.isGameWon = true;
         }
 
         view.repaint();
     }
 
-    public void resetGame()
-    {
+    public void resetGame() {
         model.score = 0;
         model.maxTile = 0;
 
