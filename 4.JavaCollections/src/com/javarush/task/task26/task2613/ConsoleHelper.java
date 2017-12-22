@@ -2,22 +2,23 @@ package com.javarush.task.task26.task2613;
 
 import com.javarush.task.task26.task2613.exception.InterruptOperationException;
 
-import java.io.*;
-import java.util.PropertyResourceBundle;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ResourceBundle;
 
 public class ConsoleHelper {
     private static BufferedReader bis = new BufferedReader(new InputStreamReader(System.in));
 
-    private static ResourceBundle res;
+    private static ResourceBundle res = ResourceBundle.getBundle(CashMachine.RESOURCE_PATH + "common_en");
 
-    static {
+    /*static {
         try (BufferedReader reader = new BufferedReader(new FileReader(CashMachine.RESOURCE_PATH + "common_en.properties"))) {
             res = new PropertyResourceBundle(reader);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public static void writeMessage(String message) {
         System.out.println(message);
@@ -82,5 +83,9 @@ public class ConsoleHelper {
             }
             return operation;
         }
+    }
+
+    public static void printExitMessage() {
+        writeMessage(res.getString("the.end"));
     }
 }

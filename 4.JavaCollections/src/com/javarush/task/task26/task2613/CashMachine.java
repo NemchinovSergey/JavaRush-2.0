@@ -7,7 +7,8 @@ import java.util.Locale;
 
 public class CashMachine {
     // for JavaRush validation:
-    public static final String RESOURCE_PATH = "./" + CashMachine.class.getPackage().getName().replace('.', '/') + "/resources/";
+    ////public static final String RESOURCE_PATH = "./" + CashMachine.class.getPackage().getName().replace('.', '/') + "/resources/";
+    public static final String RESOURCE_PATH = CashMachine.class.getPackage().getName() + ".resources.";
 
     //for local testing with IDE:
     //public static final String RESOURCE_PATH = "_resources/";
@@ -21,9 +22,10 @@ public class CashMachine {
             do {
                 operation = ConsoleHelper.askOperation();
                 CommandExecutor.execute(operation);
-            } while (true);
-        } catch (InterruptOperationException e) {
-            ConsoleHelper.writeMessage("До встречи!");
+            } while (operation != Operation.EXIT);
+        }
+        catch (InterruptOperationException e) {
+            ConsoleHelper.printExitMessage();
         }
     }
 }
